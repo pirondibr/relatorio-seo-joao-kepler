@@ -345,9 +345,20 @@ body {
   gap: 10px;
 }
 .panel.feature { margin-bottom: 14px; }
-.cat-grid.wide-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; padding: 18px 20px 22px; }
-.cat-grid.wide-grid .cat-card { padding: 15px 16px; }
-.cat-grid.wide-grid .cat-card-top h3 { font-size: .92rem; }
+.cat-grid.wide-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 18px; padding: 18px 20px 22px; }
+.cat-grid.wide-grid .cat-card {
+  padding: 15px 18px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas: "top top" "bar bar" "meta term";
+  column-gap: 18px;
+  align-items: center;
+}
+.cat-grid.wide-grid .cat-card-top { grid-area: top; }
+.cat-grid.wide-grid .bar { grid-area: bar; }
+.cat-grid.wide-grid .cat-card-meta { grid-area: meta; }
+.cat-grid.wide-grid .cat-card-top-term { grid-area: term; margin: 0; text-align: right; }
+.cat-grid.wide-grid .cat-card-top h3 { font-size: .95rem; }
 .panel.funnel-panel { margin-bottom: 30px; }
 .panel.funnel-panel .funnel { grid-template-columns: repeat(3, minmax(0, 1fr)); display: grid; gap: 22px; }
 .panel.funnel-panel .funnel-row { grid-template-columns: 78px 1fr; grid-template-areas: "name track" "meta meta"; row-gap: 7px; }
