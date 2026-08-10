@@ -1,0 +1,1625 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Relatório SEO · João Kepler</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+
+:root {
+  --ink: #14211f;
+  --ink-soft: #5d6b68;
+  --line: #e2ded4;
+  --line-soft: #efece4;
+  --paper: #ffffff;
+  --bg: #f4f2ec;
+  --accent: #0d3b3a;
+  --accent-soft: #14544f;
+  --gold: #b3893f;
+  --facil: #1e8a5f;
+  --facil-bg: #dff3e6;
+  --medio: #b26a12;
+  --medio-bg: #fbeacd;
+  --dificil: #b23a35;
+  --dificil-bg: #fadedb;
+  --ref: #1f5f86;
+  --ref-bg: #ddebf6;
+  --radius: 16px;
+  --shadow: 0 1px 2px rgba(20,33,31,.04), 0 8px 24px rgba(20,33,31,.05);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--ink);
+  background:
+    radial-gradient(1100px 520px at 8% -8%, #e0efec 0%, transparent 62%),
+    radial-gradient(820px 420px at 96% -4%, #f3e8d6 0%, transparent 58%),
+    var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap { max-width: 1220px; margin: 0 auto; padding: 40px 24px 80px; }
+
+/* ---------- header ---------- */
+.masthead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--line);
+}
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+.eyebrow::before {
+  content: "";
+  width: 26px;
+  height: 1px;
+  background: var(--gold);
+}
+.masthead h1 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 2.35rem;
+  line-height: 1.1;
+  letter-spacing: -.02em;
+  color: var(--accent);
+  font-weight: 600;
+}
+.masthead .lede { margin: 8px 0 0; color: var(--ink-soft); max-width: 56ch; }
+.meta-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.meta-chips span {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: .78rem;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+
+/* ---------- tabs ---------- */
+.tabs {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  gap: 4px;
+  margin: 0 -24px 26px;
+  padding: 14px 24px;
+  background: rgba(244,242,236,.86);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.tab {
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--ink-soft);
+  font: inherit;
+  font-weight: 600;
+  font-size: .92rem;
+  padding: 9px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: .18s ease;
+}
+.tab:hover { color: var(--accent); background: rgba(13,59,58,.06); }
+.tab.active {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(13,59,58,.22);
+}
+.tab .n {
+  display: inline-block;
+  margin-left: 8px;
+  font-size: .72rem;
+  opacity: .7;
+  font-variant-numeric: tabular-nums;
+}
+.panel-view { display: none; animation: fade .28s ease; }
+.panel-view.active { display: block; }
+@keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+/* ---------- callout ---------- */
+.callout {
+  position: relative;
+  background: linear-gradient(180deg, #fffefb, #fdfbf6);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 26px 28px;
+  margin-bottom: 22px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.callout::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: linear-gradient(180deg, var(--accent), var(--gold));
+}
+.callout.warn::before { background: linear-gradient(180deg, var(--medio), var(--dificil)); }
+.callout-badge {
+  display: inline-block;
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+.callout h2 {
+  margin: 0 0 10px;
+  font-family: Georgia, serif;
+  font-size: 1.5rem;
+  line-height: 1.25;
+  color: var(--accent);
+  font-weight: 600;
+}
+.callout p { margin: 0; color: var(--ink-soft); max-width: 82ch; }
+.callout strong { color: var(--ink); }
+.conc-lists {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px dashed var(--line);
+}
+.list-label {
+  display: block;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 10px;
+}
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag {
+  display: inline-block;
+  padding: 5px 11px;
+  border-radius: 999px;
+  font-size: .78rem;
+  font-weight: 600;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+.tag.op { background: var(--facil-bg); color: var(--facil); border-color: #bfe6cd; }
+.tag.hard { background: var(--dificil-bg); color: var(--dificil); border-color: #f2c8c4; }
+
+/* ---------- kpis ---------- */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 22px;
+}
+.kpi {
+  background: var(--accent);
+  color: #fff;
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  position: relative;
+  overflow: hidden;
+}
+.kpi::after {
+  content: "";
+  position: absolute;
+  right: -30px;
+  top: -30px;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.05);
+}
+.kpi-label {
+  display: block;
+  font-size: .74rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  opacity: .72;
+  margin-bottom: 8px;
+}
+.kpi-value {
+  display: block;
+  font-size: 2.05rem;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -.02em;
+}
+.kpi-hint { display: block; margin-top: 8px; font-size: .76rem; opacity: .62; }
+
+/* ---------- layout ---------- */
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, .82fr) minmax(0, 1.18fr);
+  gap: 14px;
+  margin-bottom: 30px;
+  align-items: start;
+}
+.panel-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  align-items: start;
+}
+.stack { display: grid; gap: 14px; }
+
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 34px 0 16px;
+}
+.section-label span {
+  font-family: Georgia, serif;
+  font-size: 1.12rem;
+  color: var(--accent);
+}
+.section-label::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+
+/* ---------- panel ---------- */
+.panel {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  min-width: 0;
+}
+.panel.soft { background: linear-gradient(180deg, #fffefc, var(--paper)); }
+.panel-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--line-soft);
+}
+.panel-title h3 {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--accent);
+  letter-spacing: -.01em;
+}
+.panel-title p { margin: 4px 0 0; font-size: .78rem; color: var(--ink-soft); }
+
+.sorter { display: inline-flex; gap: 4px; flex-shrink: 0; }
+.chip {
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--ink-soft);
+  font: inherit;
+  font-size: .72rem;
+  font-weight: 700;
+  padding: 5px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: .15s;
+}
+.chip:hover { border-color: var(--accent-soft); color: var(--accent); }
+.chip.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+/* ---------- funnel ---------- */
+.funnel { padding: 16px 18px 20px; display: grid; gap: 16px; }
+.funnel-row { display: grid; grid-template-columns: 86px 1fr auto; align-items: center; gap: 12px; }
+.funnel-name { font-size: .84rem; font-weight: 600; display: inline-flex; align-items: center; gap: 7px; }
+.dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+.dot.topo { background: #6aa8d8; }
+.dot.meio { background: #e0b054; }
+.dot.fundo { background: #5cb389; }
+.funnel-track { height: 9px; background: var(--line-soft); border-radius: 999px; overflow: hidden; }
+.funnel-fill { height: 100%; border-radius: 999px; }
+.funnel-fill.topo { background: linear-gradient(90deg, #8fc0e6, #5a95c9); }
+.funnel-fill.meio { background: linear-gradient(90deg, #f0cd88, #d69f38); }
+.funnel-fill.fundo { background: linear-gradient(90deg, #8fd3b1, #48a175); }
+.funnel-meta { font-size: .76rem; color: var(--ink-soft); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+/* ---------- category cards ---------- */
+.cat-grid {
+  padding: 16px 18px 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.cat-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid var(--line-soft);
+  border-radius: 12px;
+  padding: 13px 14px;
+  background: #fff;
+  transition: .18s ease;
+}
+.cat-card:hover {
+  border-color: var(--accent-soft);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(20,33,31,.07);
+}
+.cat-card-top { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.cat-card-top h3 { margin: 0; font-size: .88rem; color: var(--accent); line-height: 1.3; }
+.share { font-size: .78rem; font-weight: 700; color: var(--gold); font-variant-numeric: tabular-nums; }
+.bar { height: 5px; background: var(--line-soft); border-radius: 999px; margin: 10px 0 9px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--accent-soft), var(--accent)); }
+.cat-card-meta { display: flex; gap: 14px; font-size: .76rem; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+.cat-card-meta strong { color: var(--ink); }
+.cat-card-top-term {
+  margin: 8px 0 0;
+  font-size: .72rem;
+  color: var(--ink-soft);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ---------- difficulty bars ---------- */
+.dbars { padding: 16px 18px 8px; display: grid; gap: 12px; }
+.dbar-row { display: grid; grid-template-columns: minmax(0, 150px) 1fr auto; align-items: center; gap: 12px; }
+.dbar-name { font-size: .8rem; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.dbar { display: flex; height: 9px; border-radius: 999px; overflow: hidden; background: var(--line-soft); }
+.seg.facil { background: #4dae7f; }
+.seg.medio { background: #e0a24a; }
+.seg.dificil { background: #d4726c; }
+.dbar-meta { font-size: .74rem; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+.legend { display: flex; flex-wrap: wrap; gap: 16px; padding: 6px 18px 18px; font-size: .74rem; color: var(--ink-soft); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.sw { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+.sw.facil { background: #4dae7f; }
+.sw.medio { background: #e0a24a; }
+.sw.dificil { background: #d4726c; }
+
+.method { margin: 0; padding: 16px 18px 20px 36px; color: var(--ink-soft); font-size: .86rem; }
+.method li { margin-bottom: 7px; }
+.method strong { color: var(--ink); }
+
+/* ---------- tables ---------- */
+.scroll { overflow-x: auto; max-height: 460px; }
+table.grid { width: 100%; border-collapse: collapse; font-size: .84rem; }
+table.grid thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  text-align: left;
+  padding: 9px 12px;
+  background: #f7f5ef;
+  border-bottom: 1px solid var(--line);
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+table.grid tbody td { padding: 9px 12px; border-bottom: 1px solid var(--line-soft); }
+table.grid tbody tr:last-child td { border-bottom: none; }
+table.grid tbody tr:hover { background: #f8fbfa; }
+th.sortable { cursor: pointer; user-select: none; }
+th.sortable:hover { color: var(--accent); }
+.idx { width: 38px; color: #a8a29a; font-variant-numeric: tabular-nums; text-align: right; }
+.term { font-weight: 500; }
+.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.num.strong { font-weight: 700; }
+.soft-col { color: var(--ink-soft); }
+.rank-cell { width: 78px; }
+.rank { font-variant-numeric: tabular-nums; font-weight: 700; font-size: .8rem; }
+.rank.ok { color: var(--facil); }
+.rank.none { color: #b8b2a8; }
+
+.pill {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: .72rem;
+  font-weight: 700;
+}
+.pill.topo { background: #e2eef8; color: #1c5e8c; }
+.pill.meio { background: #fbf0d5; color: #8a6416; }
+.pill.fundo { background: #ddf2e6; color: #1c7a52; }
+
+.diff {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: .72rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.diff.facil { background: var(--facil-bg); color: var(--facil); }
+.diff.medio { background: var(--medio-bg); color: var(--medio); }
+.diff.dificil { background: var(--dificil-bg); color: var(--dificil); }
+.diff.ref, .diff.na { background: var(--ref-bg); color: var(--ref); }
+
+/* ---------- serp blocks ---------- */
+.panel.wide { grid-column: 1 / -1; }
+.kw { border-top: 1px solid var(--line-soft); }
+.kw-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px;
+  padding: 13px 18px 9px;
+}
+.kw-head h4 { margin: 0; font-size: .92rem; color: var(--ink); }
+.kw-meta { font-size: .76rem; color: var(--ink-soft); }
+table.serp .scroll { max-height: none; }
+table.serp tbody tr.jk { background: #f2f8f7; }
+table.serp tbody tr.jk td { border-bottom-color: #dbe9e6; }
+.term a { color: var(--accent); text-decoration: none; font-weight: 500; }
+.term a:hover { text-decoration: underline; }
+.dom { display: block; font-size: .7rem; color: var(--ink-soft); margin-top: 2px; }
+.muted { color: var(--ink-soft); }
+
+footer.foot {
+  margin-top: 40px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  font-size: .78rem;
+  color: var(--ink-soft);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  justify-content: space-between;
+}
+
+/* ---------- responsive ---------- */
+@media (max-width: 1040px) {
+  .kpi-grid { grid-template-columns: 1fr 1fr; }
+  .split, .panel-grid { grid-template-columns: 1fr; }
+  .cat-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 680px) {
+  .wrap { padding: 26px 16px 60px; }
+  .masthead h1 { font-size: 1.8rem; }
+  .kpi-grid, .cat-grid, .conc-lists { grid-template-columns: 1fr; }
+  .tabs { margin: 0 -16px 20px; padding: 12px 16px; }
+  .soft-col { display: none; }
+}
+
+@media print {
+  body { background: #fff; }
+  .tabs { display: none; }
+  .panel-view { display: block !important; }
+  .panel, .callout, .kpi { box-shadow: none; break-inside: avoid; }
+  .scroll { max-height: none; overflow: visible; }
+}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="masthead">
+      <div>
+        <span class="eyebrow">Pesquisa de SEO · Brasil</span>
+        <h1>João Kepler</h1>
+        <p class="lede">Mapeamento de demanda de busca, potencial por categoria e análise de concorrência orgânica para <a href="https://joaokepler.com.br/" target="_blank" rel="noopener">joaokepler.com.br</a>.</p>
+      </div>
+      <div class="meta-chips">
+        <span>137 palavras</span>
+        <span>160.470 buscas/mês</span>
+        <span>DataForSEO · Semrush</span>
+        <span>Atualizado 2026-08-10</span>
+      </div>
+    </header>
+
+    <nav class="tabs">
+      <button class="tab active" type="button" data-view="potencial">Potencial<span class="n">137</span></button>
+      <button class="tab" type="button" data-view="concorrencia">Concorrência<span class="n">21</span></button>
+    </nav>
+
+    <div id="view-potencial" class="panel-view active">
+    <section class="callout">
+      <span class="callout-badge">Conclusão</span>
+      <h2>Existe um ótimo potencial para SEO</h2>
+      <p>O público-alvo está pesquisando ativamente termos relacionados aos produtos e ao posicionamento do João Kepler no Google. São <strong>137 palavras</strong> validadas somando <strong>160.470 buscas mensais</strong> no Brasil, distribuídas em <strong>8 categorias macro</strong> — todas conectadas às ofertas do site (equity, valuation, captação, investimento anjo e educação).</p>
+    </section>
+
+    <div class="kpi-grid">
+        <div class="kpi">
+          <span class="kpi-label">Palavras mapeadas</span>
+          <strong class="kpi-value">137</strong>
+          <span class="kpi-hint">termos validados no DataForSEO</span>
+        </div>
+        <div class="kpi">
+          <span class="kpi-label">Volume mensal</span>
+          <strong class="kpi-value">160,5k</strong>
+          <span class="kpi-hint">160.470 buscas/mês no Brasil</span>
+        </div>
+        <div class="kpi">
+          <span class="kpi-label">Categorias macro</span>
+          <strong class="kpi-value">8</strong>
+          <span class="kpi-hint">pilares de conteúdo</span>
+        </div>
+        <div class="kpi">
+          <span class="kpi-label">Já ranqueando</span>
+          <strong class="kpi-value">28</strong>
+          <span class="kpi-hint">termos com posição registrada</span>
+        </div></div>
+
+    <div class="split">
+      <section class="panel soft">
+        <header class="panel-head"><div class="panel-title"><h3>Distribuição por funil</h3><p>Onde está o volume de busca</p></div></header>
+        <div class="funnel">
+          <div class="funnel-row">
+            <span class="funnel-name"><i class="dot topo"></i>Topo</span>
+            <div class="funnel-track"><div class="funnel-fill topo" style="width:69.3%"></div></div>
+            <span class="funnel-meta">23 termos · 111.190</span>
+          </div>
+          <div class="funnel-row">
+            <span class="funnel-name"><i class="dot meio"></i>Meio</span>
+            <div class="funnel-track"><div class="funnel-fill meio" style="width:23.9%"></div></div>
+            <span class="funnel-meta">68 termos · 38.350</span>
+          </div>
+          <div class="funnel-row">
+            <span class="funnel-name"><i class="dot fundo"></i>Fundo</span>
+            <div class="funnel-track"><div class="funnel-fill fundo" style="width:6.8%"></div></div>
+            <span class="funnel-meta">46 termos · 10.930</span>
+          </div></div>
+      </section>
+      <section class="panel soft">
+        <header class="panel-head"><div class="panel-title"><h3>Categorias macro</h3><p>Participação no volume total</p></div></header>
+        <div class="cat-grid">
+        <a class="cat-card" href="#cat-investimento-anjo">
+          <div class="cat-card-top">
+            <h3>Investimento Anjo</h3>
+            <span class="share">5%</span>
+          </div>
+          <div class="bar"><div class="bar-fill" style="width:9.2%"></div></div>
+          <div class="cat-card-meta">
+            <span><strong>21</strong> palavras</span>
+            <span><strong>7.780</strong> /mês</span>
+          </div>
+          <p class="cat-card-top-term">Top: investidor anjo · 3.600</p>
+        </a>
+        <a class="cat-card" href="#cat-venture-capital">
+          <div class="cat-card-top">
+            <h3>Venture Capital</h3>
+            <span class="share">6%</span>
+          </div>
+          <div class="bar"><div class="bar-fill" style="width:10.7%"></div></div>
+          <div class="cat-card-meta">
+            <span><strong>19</strong> palavras</span>
+            <span><strong>9.060</strong> /mês</span>
+          </div>
+          <p class="cat-card-top-term">Top: fusões e aquisições · 1.600</p>
+        </a>
+        <a class="cat-card" href="#cat-equity">
+          <div class="cat-card-top">
+            <h3>Equity</h3>
+            <span class="share">10%</span>
+          </div>
+          <div class="bar"><div class="bar-fill" style="width:19.5%"></div></div>
+          <div class="cat-card-meta">
+            <span><strong>17</strong> palavras</span>
+            <span><strong>16.570</strong> /mês</span>
+          </div>
+          <p class="cat-card-top-term">Top: vesting · 9.900</p>
+        </a>
+        <a class="cat-card" href="#cat-captação">
+          <div class="cat-card-top">
+            <h3>Captação</h3>
+            <span class="share">5%</span>
+          </div>
+          <div class="bar"><div class="bar-fill" style="width:10.0%"></div></div>
+          <div class="cat-card-meta">
+            <span><strong>14</strong> palavras</span>
+            <span><strong>8.530</strong> /mês</span>
+          </div>
+          <p class="cat-card-top-term">Top: pitch deck · 3.600</p>
+        </a>
+        <a class="cat-card" href="#cat-valuation">
+          <div class="cat-card-top">
+            <h3>Valuation</h3>
+            <span class="share">15%</span>
+          </div>
+          <div class="bar"><div class="bar-fill" style="width:28.4%"></div></div>
+          <div class="cat-card-meta">
+            <span><strong>20</strong> palavras</span>
+            <span><strong>24.160</strong> /mês</span>
+          </div>
+          <p class="cat-card-top-term">Top: enterprise value · 14.800</p>
+        </a>
+        <a class="cat-card" href="#cat-empreendedorismo-nova-economia">
+          <div class="cat-card-top">
+            <h3>Empreendedorismo &amp; Nova Economia</h3>
+            <span class="share">53%</span>
+          </div>
+          <div class="bar"><div class="bar-fill" style="width:100.0%"></div></div>
+          <div class="cat-card-meta">
+            <span><strong>10</strong> palavras</span>
+            <span><strong>84.930</strong> /mês</span>
+          </div>
+          <p class="cat-card-top-term">Top: empreendedorismo · 74.000</p>
+        </a>
+        <a class="cat-card" href="#cat-educação-conteúdo-jk">
+          <div class="cat-card-top">
+            <h3>Educação &amp; Conteúdo JK</h3>
+            <span class="share">1%</span>
+          </div>
+          <div class="bar"><div class="bar-fill" style="width:1.5%"></div></div>
+          <div class="cat-card-meta">
+            <span><strong>6</strong> palavras</span>
+            <span><strong>1.300</strong> /mês</span>
+          </div>
+          <p class="cat-card-top-term">Top: livros de negócios · 480</p>
+        </a>
+        <a class="cat-card" href="#cat-branding">
+          <div class="cat-card-top">
+            <h3>Branding</h3>
+            <span class="share">5%</span>
+          </div>
+          <div class="bar"><div class="bar-fill" style="width:9.6%"></div></div>
+          <div class="cat-card-meta">
+            <span><strong>30</strong> palavras</span>
+            <span><strong>8.140</strong> /mês</span>
+          </div>
+          <p class="cat-card-top-term">Top: joão kepler · 5.000</p>
+        </a></div>
+      </section>
+    </div>
+
+    <div class="section-label"><span>Termos por categoria</span></div>
+    <div class="panel-grid">
+      <section class="panel" id="cat-investimento-anjo">
+        <header class="panel-head">
+          <div class="panel-title">
+            <h3>Investimento Anjo</h3>
+            <p>21 palavras · 7.780 buscas/mês · 0 ranqueando</p>
+          </div>
+          <div class="sorter">
+            <button type="button" class="chip active" data-sort="desc">Maior</button>
+            <button type="button" class="chip" data-sort="asc">Menor</button>
+          </div>
+        </header>
+        <div class="scroll">
+          <table class="grid">
+            <thead>
+              <tr>
+                <th class="idx">#</th>
+                <th>Termo</th>
+                <th class="num sortable">Pesquisa/mês</th>
+                <th>Funil</th>
+                <th>Posição</th>
+              </tr>
+            </thead>
+            <tbody><tr data-volume='3600' data-pos='0'><td class='idx'>1</td><td class='term'>investidor anjo</td><td class='num'>3.600</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='880' data-pos='0'><td class='idx'>2</td><td class='term'>o que é investidor anjo</td><td class='num'>880</td><td><span class='pill topo'>Topo</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='880' data-pos='0'><td class='idx'>3</td><td class='term'>bossa invest</td><td class='num'>880</td><td><span class='pill fundo'>Fundo</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='720' data-pos='0'><td class='idx'>4</td><td class='term'>pre seed</td><td class='num'>720</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='320' data-pos='0'><td class='idx'>5</td><td class='term'>como funciona investidor anjo</td><td class='num'>320</td><td><span class='pill topo'>Topo</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='260' data-pos='0'><td class='idx'>6</td><td class='term'>investimento anjo</td><td class='num'>260</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='170' data-pos='0'><td class='idx'>7</td><td class='term'>investidor anjo brasil</td><td class='num'>170</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='170' data-pos='0'><td class='idx'>8</td><td class='term'>investidores anjos no brasil</td><td class='num'>170</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='170' data-pos='0'><td class='idx'>9</td><td class='term'>fundo anjo</td><td class='num'>170</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='170' data-pos='0'><td class='idx'>10</td><td class='term'>como conseguir investidor anjo</td><td class='num'>170</td><td><span class='pill fundo'>Fundo</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='170' data-pos='0'><td class='idx'>11</td><td class='term'>preciso de investidor urgente</td><td class='num'>170</td><td><span class='pill fundo'>Fundo</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='70' data-pos='0'><td class='idx'>12</td><td class='term'>encontrar investidor anjo</td><td class='num'>70</td><td><span class='pill fundo'>Fundo</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='50' data-pos='0'><td class='idx'>13</td><td class='term'>como ser investidor anjo</td><td class='num'>50</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='50' data-pos='0'><td class='idx'>14</td><td class='term'>investidor anjo startup</td><td class='num'>50</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='30' data-pos='0'><td class='idx'>15</td><td class='term'>business angel</td><td class='num'>30</td><td><span class='pill topo'>Topo</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='20' data-pos='0'><td class='idx'>16</td><td class='term'>investimento anjo startup</td><td class='num'>20</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='10' data-pos='0'><td class='idx'>17</td><td class='term'>anjo de investimento</td><td class='num'>10</td><td><span class='pill topo'>Topo</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='10' data-pos='0'><td class='idx'>18</td><td class='term'>rodada anjo</td><td class='num'>10</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='10' data-pos='0'><td class='idx'>19</td><td class='term'>rede de investidores anjos</td><td class='num'>10</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='10' data-pos='0'><td class='idx'>20</td><td class='term'>perfil do investidor anjo</td><td class='num'>10</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='10' data-pos='0'><td class='idx'>21</td><td class='term'>clube de investidores anjos</td><td class='num'>10</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr></tbody>
+          </table>
+        </div>
+      </section>
+      <section class="panel" id="cat-venture-capital">
+        <header class="panel-head">
+          <div class="panel-title">
+            <h3>Venture Capital</h3>
+            <p>19 palavras · 9.060 buscas/mês · 0 ranqueando</p>
+          </div>
+          <div class="sorter">
+            <button type="button" class="chip active" data-sort="desc">Maior</button>
+            <button type="button" class="chip" data-sort="asc">Menor</button>
+          </div>
+        </header>
+        <div class="scroll">
+          <table class="grid">
+            <thead>
+              <tr>
+                <th class="idx">#</th>
+                <th>Termo</th>
+                <th class="num sortable">Pesquisa/mês</th>
+                <th>Funil</th>
+                <th>Posição</th>
+              </tr>
+            </thead>
+            <tbody><tr data-volume='1600' data-pos='0'><td class='idx'>1</td><td class='term'>fusões e aquisições</td><td class='num'>1.600</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='1300' data-pos='0'><td class='idx'>2</td><td class='term'>o que é private equity</td><td class='num'>1.300</td><td><span class='pill topo'>Topo</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='1300' data-pos='0'><td class='idx'>3</td><td class='term'>private equity o que é</td><td class='num'>1.300</td><td><span class='pill topo'>Topo</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='1000' data-pos='0'><td class='idx'>4</td><td class='term'>series a</td><td class='num'>1.000</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='720' data-pos='0'><td class='idx'>5</td><td class='term'>series b</td><td class='num'>720</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='720' data-pos='0'><td class='idx'>6</td><td class='term'>term sheet</td><td class='num'>720</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='480' data-pos='0'><td class='idx'>7</td><td class='term'>o que é venture capital</td><td class='num'>480</td><td><span class='pill topo'>Topo</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='320' data-pos='0'><td class='idx'>8</td><td class='term'>capital de risco</td><td class='num'>320</td><td><span class='pill topo'>Topo</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='320' data-pos='0'><td class='idx'>9</td><td class='term'>corporate venture capital</td><td class='num'>320</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='170' data-pos='0'><td class='idx'>10</td><td class='term'>investir em startups</td><td class='num'>170</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='170' data-pos='0'><td class='idx'>11</td><td class='term'>investir em empresas</td><td class='num'>170</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='170' data-pos='0'><td class='idx'>12</td><td class='term'>grupo de investidores</td><td class='num'>170</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='170' data-pos='0'><td class='idx'>13</td><td class='term'>seed capital</td><td class='num'>170</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='170' data-pos='0'><td class='idx'>14</td><td class='term'>equity group</td><td class='num'>170</td><td><span class='pill fundo'>Fundo</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='110' data-pos='0'><td class='idx'>15</td><td class='term'>fundos de venture capital</td><td class='num'>110</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='110' data-pos='0'><td class='idx'>16</td><td class='term'>venture debt</td><td class='num'>110</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='90' data-pos='0'><td class='idx'>17</td><td class='term'>vc brasil</td><td class='num'>90</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='70' data-pos='0'><td class='idx'>18</td><td class='term'>smart money significado</td><td class='num'>70</td><td><span class='pill topo'>Topo</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='70' data-pos='0'><td class='idx'>19</td><td class='term'>venture capital brasil</td><td class='num'>70</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr></tbody>
+          </table>
+        </div>
+      </section>
+      <section class="panel" id="cat-equity">
+        <header class="panel-head">
+          <div class="panel-title">
+            <h3>Equity</h3>
+            <p>17 palavras · 16.570 buscas/mês · 0 ranqueando</p>
+          </div>
+          <div class="sorter">
+            <button type="button" class="chip active" data-sort="desc">Maior</button>
+            <button type="button" class="chip" data-sort="asc">Menor</button>
+          </div>
+        </header>
+        <div class="scroll">
+          <table class="grid">
+            <thead>
+              <tr>
+                <th class="idx">#</th>
+                <th>Termo</th>
+                <th class="num sortable">Pesquisa/mês</th>
+                <th>Funil</th>
+                <th>Posição</th>
+              </tr>
+            </thead>
+            <tbody><tr data-volume='9900' data-pos='0'><td class='idx'>1</td><td class='term'>vesting</td><td class='num'>9.900</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='2400' data-pos='0'><td class='idx'>2</td><td class='term'>cap table</td><td class='num'>2.400</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='1900' data-pos='0'><td class='idx'>3</td><td class='term'>o que é equity</td><td class='num'>1.900</td><td><span class='pill topo'>Topo</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='590' data-pos='0'><td class='idx'>4</td><td class='term'>opções de ações</td><td class='num'>590</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='390' data-pos='0'><td class='idx'>5</td><td class='term'>o que é vesting</td><td class='num'>390</td><td><span class='pill topo'>Topo</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='390' data-pos='0'><td class='idx'>6</td><td class='term'>participação societária</td><td class='num'>390</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='320' data-pos='0'><td class='idx'>7</td><td class='term'>acordo de sócios</td><td class='num'>320</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='170' data-pos='0'><td class='idx'>8</td><td class='term'>sócio investidor</td><td class='num'>170</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='110' data-pos='0'><td class='idx'>9</td><td class='term'>participação acionária</td><td class='num'>110</td><td><span class='pill topo'>Topo</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='110' data-pos='0'><td class='idx'>10</td><td class='term'>cliff vesting</td><td class='num'>110</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='90' data-pos='0'><td class='idx'>11</td><td class='term'>jogo do equity</td><td class='num'>90</td><td><span class='pill fundo'>Fundo</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='70' data-pos='0'><td class='idx'>12</td><td class='term'>o poder do equity</td><td class='num'>70</td><td><span class='pill fundo'>Fundo</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='50' data-pos='0'><td class='idx'>13</td><td class='term'>shareholders agreement</td><td class='num'>50</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='40' data-pos='0'><td class='idx'>14</td><td class='term'>equity o que significa</td><td class='num'>40</td><td><span class='pill topo'>Topo</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='20' data-pos='0'><td class='idx'>15</td><td class='term'>equity startup</td><td class='num'>20</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='10' data-pos='0'><td class='idx'>16</td><td class='term'>como funciona equity</td><td class='num'>10</td><td><span class='pill topo'>Topo</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='10' data-pos='0'><td class='idx'>17</td><td class='term'>stock options brasil</td><td class='num'>10</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr></tbody>
+          </table>
+        </div>
+      </section>
+      <section class="panel" id="cat-captação">
+        <header class="panel-head">
+          <div class="panel-title">
+            <h3>Captação</h3>
+            <p>14 palavras · 8.530 buscas/mês · 0 ranqueando</p>
+          </div>
+          <div class="sorter">
+            <button type="button" class="chip active" data-sort="desc">Maior</button>
+            <button type="button" class="chip" data-sort="asc">Menor</button>
+          </div>
+        </header>
+        <div class="scroll">
+          <table class="grid">
+            <thead>
+              <tr>
+                <th class="idx">#</th>
+                <th>Termo</th>
+                <th class="num sortable">Pesquisa/mês</th>
+                <th>Funil</th>
+                <th>Posição</th>
+              </tr>
+            </thead>
+            <tbody><tr data-volume='3600' data-pos='0'><td class='idx'>1</td><td class='term'>pitch deck</td><td class='num'>3.600</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='1300' data-pos='0'><td class='idx'>2</td><td class='term'>fundraising</td><td class='num'>1.300</td><td><span class='pill topo'>Topo</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='1300' data-pos='0'><td class='idx'>3</td><td class='term'>captação de recursos</td><td class='num'>1.300</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='1300' data-pos='0'><td class='idx'>4</td><td class='term'>elevator pitch</td><td class='num'>1.300</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='480' data-pos='0'><td class='idx'>5</td><td class='term'>como fazer um pitch</td><td class='num'>480</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='170' data-pos='0'><td class='idx'>6</td><td class='term'>investimento para empresa</td><td class='num'>170</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='110' data-pos='0'><td class='idx'>7</td><td class='term'>rodada de investimento</td><td class='num'>110</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='50' data-pos='0'><td class='idx'>8</td><td class='term'>pitch para investidores</td><td class='num'>50</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='50' data-pos='0'><td class='idx'>9</td><td class='term'>rodada seed</td><td class='num'>50</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='50' data-pos='0'><td class='idx'>10</td><td class='term'>financiamento startup</td><td class='num'>50</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='40' data-pos='0'><td class='idx'>11</td><td class='term'>rodada de investimento startup</td><td class='num'>40</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='40' data-pos='0'><td class='idx'>12</td><td class='term'>levantamento de capital</td><td class='num'>40</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='30' data-pos='0'><td class='idx'>13</td><td class='term'>captação de investimento</td><td class='num'>30</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='10' data-pos='0'><td class='idx'>14</td><td class='term'>como atrair investidores</td><td class='num'>10</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr></tbody>
+          </table>
+        </div>
+      </section>
+      <section class="panel" id="cat-valuation">
+        <header class="panel-head">
+          <div class="panel-title">
+            <h3>Valuation</h3>
+            <p>20 palavras · 24.160 buscas/mês · 0 ranqueando</p>
+          </div>
+          <div class="sorter">
+            <button type="button" class="chip active" data-sort="desc">Maior</button>
+            <button type="button" class="chip" data-sort="asc">Menor</button>
+          </div>
+        </header>
+        <div class="scroll">
+          <table class="grid">
+            <thead>
+              <tr>
+                <th class="idx">#</th>
+                <th>Termo</th>
+                <th class="num sortable">Pesquisa/mês</th>
+                <th>Funil</th>
+                <th>Posição</th>
+              </tr>
+            </thead>
+            <tbody><tr data-volume='14800' data-pos='0'><td class='idx'>1</td><td class='term'>enterprise value</td><td class='num'>14.800</td><td><span class='pill topo'>Topo</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='3600' data-pos='0'><td class='idx'>2</td><td class='term'>o que é valuation</td><td class='num'>3.600</td><td><span class='pill topo'>Topo</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='1300' data-pos='0'><td class='idx'>3</td><td class='term'>valuation de empresa</td><td class='num'>1.300</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='1000' data-pos='0'><td class='idx'>4</td><td class='term'>fluxo de caixa descontado</td><td class='num'>1.000</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='880' data-pos='0'><td class='idx'>5</td><td class='term'>avaliação de empresas</td><td class='num'>880</td><td><span class='pill topo'>Topo</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='590' data-pos='0'><td class='idx'>6</td><td class='term'>avaliar empresa</td><td class='num'>590</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='390' data-pos='0'><td class='idx'>7</td><td class='term'>valuation significado</td><td class='num'>390</td><td><span class='pill topo'>Topo</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='390' data-pos='0'><td class='idx'>8</td><td class='term'>calculadora de valuation</td><td class='num'>390</td><td><span class='pill fundo'>Fundo</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='320' data-pos='0'><td class='idx'>9</td><td class='term'>diagnóstico empresarial</td><td class='num'>320</td><td><span class='pill fundo'>Fundo</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='260' data-pos='0'><td class='idx'>10</td><td class='term'>como calcular valuation</td><td class='num'>260</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='170' data-pos='0'><td class='idx'>11</td><td class='term'>valuation post money</td><td class='num'>170</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='110' data-pos='0'><td class='idx'>12</td><td class='term'>como fazer valuation</td><td class='num'>110</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='110' data-pos='0'><td class='idx'>13</td><td class='term'>dcf valuation</td><td class='num'>110</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='70' data-pos='0'><td class='idx'>14</td><td class='term'>quanto vale minha empresa</td><td class='num'>70</td><td><span class='pill fundo'>Fundo</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='50' data-pos='0'><td class='idx'>15</td><td class='term'>valuation pre money</td><td class='num'>50</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='50' data-pos='0'><td class='idx'>16</td><td class='term'>valor de mercado da empresa</td><td class='num'>50</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='20' data-pos='0'><td class='idx'>17</td><td class='term'>valuation de startup</td><td class='num'>20</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='20' data-pos='0'><td class='idx'>18</td><td class='term'>métodos de valuation</td><td class='num'>20</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='20' data-pos='0'><td class='idx'>19</td><td class='term'>valuation gratuito</td><td class='num'>20</td><td><span class='pill fundo'>Fundo</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='10' data-pos='0'><td class='idx'>20</td><td class='term'>múltiplo ebitda</td><td class='num'>10</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr></tbody>
+          </table>
+        </div>
+      </section>
+      <section class="panel" id="cat-empreendedorismo-nova-economia">
+        <header class="panel-head">
+          <div class="panel-title">
+            <h3>Empreendedorismo &amp; Nova Economia</h3>
+            <p>10 palavras · 84.930 buscas/mês · 0 ranqueando</p>
+          </div>
+          <div class="sorter">
+            <button type="button" class="chip active" data-sort="desc">Maior</button>
+            <button type="button" class="chip" data-sort="asc">Menor</button>
+          </div>
+        </header>
+        <div class="scroll">
+          <table class="grid">
+            <thead>
+              <tr>
+                <th class="idx">#</th>
+                <th>Termo</th>
+                <th class="num sortable">Pesquisa/mês</th>
+                <th>Funil</th>
+                <th>Posição</th>
+              </tr>
+            </thead>
+            <tbody><tr data-volume='74000' data-pos='0'><td class='idx'>1</td><td class='term'>empreendedorismo</td><td class='num'>74.000</td><td><span class='pill topo'>Topo</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='8100' data-pos='0'><td class='idx'>2</td><td class='term'>o que é startup</td><td class='num'>8.100</td><td><span class='pill topo'>Topo</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='1600' data-pos='0'><td class='idx'>3</td><td class='term'>o que é pivô</td><td class='num'>1.600</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='480' data-pos='0'><td class='idx'>4</td><td class='term'>nova economia</td><td class='num'>480</td><td><span class='pill topo'>Topo</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='480' data-pos='0'><td class='idx'>5</td><td class='term'>startups brasil</td><td class='num'>480</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='140' data-pos='0'><td class='idx'>6</td><td class='term'>aceleradora de startups</td><td class='num'>140</td><td><span class='pill fundo'>Fundo</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='40' data-pos='0'><td class='idx'>7</td><td class='term'>como escalar um negócio</td><td class='num'>40</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='40' data-pos='0'><td class='idx'>8</td><td class='term'>inovação nos negócios</td><td class='num'>40</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='40' data-pos='0'><td class='idx'>9</td><td class='term'>criar startup</td><td class='num'>40</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='10' data-pos='0'><td class='idx'>10</td><td class='term'>mentoria para startups</td><td class='num'>10</td><td><span class='pill fundo'>Fundo</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr></tbody>
+          </table>
+        </div>
+      </section>
+      <section class="panel" id="cat-educação-conteúdo-jk">
+        <header class="panel-head">
+          <div class="panel-title">
+            <h3>Educação &amp; Conteúdo JK</h3>
+            <p>6 palavras · 1.300 buscas/mês · 0 ranqueando</p>
+          </div>
+          <div class="sorter">
+            <button type="button" class="chip active" data-sort="desc">Maior</button>
+            <button type="button" class="chip" data-sort="asc">Menor</button>
+          </div>
+        </header>
+        <div class="scroll">
+          <table class="grid">
+            <thead>
+              <tr>
+                <th class="idx">#</th>
+                <th>Termo</th>
+                <th class="num sortable">Pesquisa/mês</th>
+                <th>Funil</th>
+                <th>Posição</th>
+              </tr>
+            </thead>
+            <tbody><tr data-volume='480' data-pos='0'><td class='idx'>1</td><td class='term'>livros de negócios</td><td class='num'>480</td><td><span class='pill topo'>Topo</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='390' data-pos='0'><td class='idx'>2</td><td class='term'>palestra empreendedorismo</td><td class='num'>390</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='210' data-pos='0'><td class='idx'>3</td><td class='term'>podcast empreendedorismo</td><td class='num'>210</td><td><span class='pill meio'>Meio</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='110' data-pos='0'><td class='idx'>4</td><td class='term'>curso empreendedorismo online</td><td class='num'>110</td><td><span class='pill fundo'>Fundo</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='90' data-pos='0'><td class='idx'>5</td><td class='term'>livro smart money</td><td class='num'>90</td><td><span class='pill fundo'>Fundo</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='20' data-pos='0'><td class='idx'>6</td><td class='term'>livro o poder do equity</td><td class='num'>20</td><td><span class='pill fundo'>Fundo</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr></tbody>
+          </table>
+        </div>
+      </section>
+      <section class="panel" id="cat-branding">
+        <header class="panel-head">
+          <div class="panel-title">
+            <h3>Branding</h3>
+            <p>30 palavras · 8.140 buscas/mês · 28 ranqueando</p>
+          </div>
+          <div class="sorter">
+            <button type="button" class="chip active" data-sort="desc">Maior</button>
+            <button type="button" class="chip" data-sort="asc">Menor</button>
+          </div>
+        </header>
+        <div class="scroll">
+          <table class="grid">
+            <thead>
+              <tr>
+                <th class="idx">#</th>
+                <th>Termo</th>
+                <th class="num sortable">Pesquisa/mês</th>
+                <th>Funil</th>
+                <th>Posição</th>
+              </tr>
+            </thead>
+            <tbody><tr data-volume='5000' data-pos='1'><td class='idx'>1</td><td class='term'>joão kepler</td><td class='num'>5.000</td><td><span class='pill fundo'>Fundo</span></td><td class='rank-cell'><span class='rank ok'>#1</span></td></tr><tr data-volume='320' data-pos='1'><td class='idx'>2</td><td class='term'>biografia joao kepler</td><td class='num'>320</td><td><span class='pill fundo'>Fundo</span></td><td class='rank-cell'><span class='rank ok'>#1</span></td></tr><tr data-volume='320' data-pos='1'><td class='idx'>3</td><td class='term'>joao kepler biografia</td><td class='num'>320</td><td><span class='pill fundo'>Fundo</span></td><td class='rank-cell'><span class='rank ok'>#1</span></td></tr><tr data-volume='260' data-pos='1'><td class='idx'>4</td><td class='term'>joao kepler instagram</td><td class='num'>260</td><td><span class='pill fundo'>Fundo</span></td><td class='rank-cell'><span class='rank ok'>#1</span></td></tr><tr data-volume='260' data-pos='1'><td class='idx'>5</td><td class='term'>instagram joao kepler</td><td class='num'>260</td><td><span class='pill fundo'>Fundo</span></td><td class='rank-cell'><span class='rank ok'>#1</span></td></tr><tr data-volume='210' data-pos='1'><td class='idx'>6</td><td class='term'>joao kepler livros</td><td class='num'>210</td><td><span class='pill fundo'>Fundo</span></td><td class='rank-cell'><span class='rank ok'>#1</span></td></tr><tr data-volume='210' data-pos='1'><td class='idx'>7</td><td class='term'>livro joao kepler</td><td class='num'>210</td><td><span class='pill fundo'>Fundo</span></td><td class='rank-cell'><span class='rank ok'>#1</span></td></tr><tr data-volume='210' data-pos='1'><td class='idx'>8</td><td class='term'>livros joao kepler</td><td class='num'>210</td><td><span class='pill fundo'>Fundo</span></td><td class='rank-cell'><span class='rank ok'>#1</span></td></tr><tr data-volume='210' data-pos='1'><td class='idx'>9</td><td class='term'>livros de joao kepler</td><td class='num'>210</td><td><span class='pill fundo'>Fundo</span></td><td class='rank-cell'><span class='rank ok'>#1</span></td></tr><tr data-volume='170' data-pos='1'><td class='idx'>10</td><td class='term'>quem e joao kepler</td><td class='num'>170</td><td><span class='pill fundo'>Fundo</span></td><td class='rank-cell'><span class='rank ok'>#1</span></td></tr><tr data-volume='140' data-pos='1'><td class='idx'>11</td><td class='term'>anjo joao kepler</td><td class='num'>140</td><td><span class='pill fundo'>Fundo</span></td><td class='rank-cell'><span class='rank ok'>#1</span></td></tr><tr data-volume='140' data-pos='1'><td class='idx'>12</td><td class='term'>investidor anjo joao kepler</td><td class='num'>140</td><td><span class='pill fundo'>Fundo</span></td><td class='rank-cell'><span class='rank ok'>#1</span></td></tr><tr data-volume='90' data-pos='1'><td class='idx'>13</td><td class='term'>joao kepler idade</td><td class='num'>90</td><td><span class='pill fundo'>Fundo</span></td><td class='rank-cell'><span class='rank ok'>#1</span></td></tr><tr data-volume='90' data-pos='1'><td class='idx'>14</td><td class='term'>joao kepler frases</td><td class='num'>90</td><td><span class='pill fundo'>Fundo</span></td><td class='rank-cell'><span class='rank ok'>#1</span></td></tr><tr data-volume='70' data-pos='1'><td class='idx'>15</td><td class='term'>site joao kepler</td><td class='num'>70</td><td><span class='pill fundo'>Fundo</span></td><td class='rank-cell'><span class='rank ok'>#1</span></td></tr><tr data-volume='50' data-pos='1'><td class='idx'>16</td><td class='term'>joao kepler linkedin</td><td class='num'>50</td><td><span class='pill fundo'>Fundo</span></td><td class='rank-cell'><span class='rank ok'>#1</span></td></tr><tr data-volume='50' data-pos='1'><td class='idx'>17</td><td class='term'>podcast joao kepler</td><td class='num'>50</td><td><span class='pill fundo'>Fundo</span></td><td class='rank-cell'><span class='rank ok'>#1</span></td></tr><tr data-volume='50' data-pos='1'><td class='idx'>18</td><td class='term'>joao kepler fortuna</td><td class='num'>50</td><td><span class='pill fundo'>Fundo</span></td><td class='rank-cell'><span class='rank ok'>#1</span></td></tr><tr data-volume='40' data-pos='1'><td class='idx'>19</td><td class='term'>patrimonio joao kepler</td><td class='num'>40</td><td><span class='pill fundo'>Fundo</span></td><td class='rank-cell'><span class='rank ok'>#1</span></td></tr><tr data-volume='40' data-pos='1'><td class='idx'>20</td><td class='term'>palestra joao kepler</td><td class='num'>40</td><td><span class='pill fundo'>Fundo</span></td><td class='rank-cell'><span class='rank ok'>#1</span></td></tr><tr data-volume='40' data-pos='1'><td class='idx'>21</td><td class='term'>joao kepler palestra</td><td class='num'>40</td><td><span class='pill fundo'>Fundo</span></td><td class='rank-cell'><span class='rank ok'>#1</span></td></tr><tr data-volume='40' data-pos='1'><td class='idx'>22</td><td class='term'>esposa joao kepler</td><td class='num'>40</td><td><span class='pill fundo'>Fundo</span></td><td class='rank-cell'><span class='rank ok'>#1</span></td></tr><tr data-volume='30' data-pos='1'><td class='idx'>23</td><td class='term'>joao kepler bmg</td><td class='num'>30</td><td><span class='pill fundo'>Fundo</span></td><td class='rank-cell'><span class='rank ok'>#1</span></td></tr><tr data-volume='20' data-pos='1'><td class='idx'>24</td><td class='term'>joao kepler katz</td><td class='num'>20</td><td><span class='pill fundo'>Fundo</span></td><td class='rank-cell'><span class='rank ok'>#1</span></td></tr><tr data-volume='20' data-pos='1'><td class='idx'>25</td><td class='term'>contato joao kepler</td><td class='num'>20</td><td><span class='pill fundo'>Fundo</span></td><td class='rank-cell'><span class='rank ok'>#1</span></td></tr><tr data-volume='20' data-pos='1'><td class='idx'>26</td><td class='term'>joao kepler wikipedia</td><td class='num'>20</td><td><span class='pill fundo'>Fundo</span></td><td class='rank-cell'><span class='rank ok'>#1</span></td></tr><tr data-volume='10' data-pos='0'><td class='idx'>27</td><td class='term'>valuation joão kepler</td><td class='num'>10</td><td><span class='pill fundo'>Fundo</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='10' data-pos='0'><td class='idx'>28</td><td class='term'>smart money joão kepler</td><td class='num'>10</td><td><span class='pill fundo'>Fundo</span></td><td class='rank-cell'><span class='rank none'>—</span></td></tr><tr data-volume='10' data-pos='1'><td class='idx'>29</td><td class='term'>onde mora joao kepler</td><td class='num'>10</td><td><span class='pill fundo'>Fundo</span></td><td class='rank-cell'><span class='rank ok'>#1</span></td></tr><tr data-volume='10' data-pos='1'><td class='idx'>30</td><td class='term'>joao kepler pivo</td><td class='num'>10</td><td><span class='pill fundo'>Fundo</span></td><td class='rank-cell'><span class='rank ok'>#1</span></td></tr></tbody>
+          </table>
+        </div>
+      </section></div>
+    </div>
+    <div id="view-concorrencia" class="panel-view">
+    <section class="callout">
+      <span class="callout-badge">Conclusão</span>
+      <h2>Existem diversas categorias com dificuldade Fácil ou Média</h2>
+      <p>Há espaço real para competir com conteúdo e autoridade nas categorias abaixo, onde a marca dos concorrentes não supera 3× a referência do João Kepler (2.000 buscas de marca).</p>
+      <div class="conc-lists">
+        <div>
+          <span class="list-label">Categorias com oportunidade (Fácil / Média)</span>
+          <div class="tags"><span class='tag op'>Investimento Anjo</span><span class='tag op'>Captação</span></div>
+        </div>
+        <div>
+          <span class="list-label">Categorias difíceis</span>
+          <div class="tags"><span class='tag hard'>Venture Capital</span><span class='tag hard'>Equity</span><span class='tag hard'>Valuation</span><span class='tag hard'>Empreendedorismo &amp; Nova Economia</span><span class='tag hard'>Educação &amp; Conteúdo JK</span></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="split">
+      <section class="panel soft">
+        <header class="panel-head"><div class="panel-title"><h3>Dificuldade por categoria</h3><p>Distribuição dos top 5 do Google</p></div></header>
+        <div class="dbars">
+          <div class="dbar-row">
+            <span class="dbar-name">Investimento Anjo</span>
+            <div class="dbar">
+              <span class="seg facil" style="width:14.3%" title="Fácil: 2"></span>
+              <span class="seg medio" style="width:28.6%" title="Médio: 4"></span>
+              <span class="seg dificil" style="width:57.1%" title="Difícil: 8"></span>
+            </div>
+            <span class="dbar-meta">2/4/8</span>
+          </div>
+          <div class="dbar-row">
+            <span class="dbar-name">Venture Capital</span>
+            <div class="dbar">
+              <span class="seg facil" style="width:35.7%" title="Fácil: 5"></span>
+              <span class="seg medio" style="width:14.3%" title="Médio: 2"></span>
+              <span class="seg dificil" style="width:50.0%" title="Difícil: 7"></span>
+            </div>
+            <span class="dbar-meta">5/2/7</span>
+          </div>
+          <div class="dbar-row">
+            <span class="dbar-name">Equity</span>
+            <div class="dbar">
+              <span class="seg facil" style="width:26.7%" title="Fácil: 4"></span>
+              <span class="seg medio" style="width:6.7%" title="Médio: 1"></span>
+              <span class="seg dificil" style="width:66.7%" title="Difícil: 10"></span>
+            </div>
+            <span class="dbar-meta">4/1/10</span>
+          </div>
+          <div class="dbar-row">
+            <span class="dbar-name">Captação</span>
+            <div class="dbar">
+              <span class="seg facil" style="width:60.0%" title="Fácil: 9"></span>
+              <span class="seg medio" style="width:6.7%" title="Médio: 1"></span>
+              <span class="seg dificil" style="width:33.3%" title="Difícil: 5"></span>
+            </div>
+            <span class="dbar-meta">9/1/5</span>
+          </div>
+          <div class="dbar-row">
+            <span class="dbar-name">Valuation</span>
+            <div class="dbar">
+              <span class="seg facil" style="width:14.3%" title="Fácil: 2"></span>
+              <span class="seg medio" style="width:7.1%" title="Médio: 1"></span>
+              <span class="seg dificil" style="width:78.6%" title="Difícil: 11"></span>
+            </div>
+            <span class="dbar-meta">2/1/11</span>
+          </div>
+          <div class="dbar-row">
+            <span class="dbar-name">Empreendedorismo &amp; Nova Economia</span>
+            <div class="dbar">
+              <span class="seg facil" style="width:16.7%" title="Fácil: 2"></span>
+              <span class="seg medio" style="width:8.3%" title="Médio: 1"></span>
+              <span class="seg dificil" style="width:75.0%" title="Difícil: 9"></span>
+            </div>
+            <span class="dbar-meta">2/1/9</span>
+          </div>
+          <div class="dbar-row">
+            <span class="dbar-name">Educação &amp; Conteúdo JK</span>
+            <div class="dbar">
+              <span class="seg facil" style="width:50.0%" title="Fácil: 6"></span>
+              <span class="seg medio" style="width:0.0%" title="Médio: 0"></span>
+              <span class="seg dificil" style="width:50.0%" title="Difícil: 6"></span>
+            </div>
+            <span class="dbar-meta">6/0/6</span>
+          </div></div>
+        <div class="legend">
+          <span><i class="sw facil"></i>Fácil &lt; 2.000</span>
+          <span><i class="sw medio"></i>Médio até 6.000</span>
+          <span><i class="sw dificil"></i>Difícil &gt; 6.000</span>
+        </div>
+      </section>
+      <section class="panel soft">
+        <header class="panel-head"><div class="panel-title"><h3>Como ler</h3><p>Metodologia do MVP</p></div></header>
+        <ul class="method">
+          <li><strong>Marca</strong> — tráfego orgânico de buscas com o nome da empresa (branded).</li>
+          <li><strong>Seo</strong> — tráfego orgânico de termos genéricos (non-branded).</li>
+          <li>Top 3 keywords de cada categoria pesquisadas no Google (Brasil).</li>
+          <li>Top 5 resultados + João Kepler na posição 6 como referência.</li>
+          <li>Categoria marcada como difícil quando ≥50% dos resultados são Difícil.</li>
+        </ul>
+      </section>
+    </div>
+
+    <div class="section-label"><span>Concorrentes por categoria</span></div>
+    <div class="stack">
+      <section class="panel wide">
+        <header class="panel-head">
+          <div class="panel-title">
+            <h3>Investimento Anjo</h3>
+            <p>Fácil 2 · Médio 4 · Difícil 8</p>
+          </div>
+          <span class="tag op">Oportunidade</span>
+        </header>
+        
+          <div class="kw">
+            <div class="kw-head">
+              <h4>investidor anjo</h4>
+              <span class="kw-meta">3.600 buscas/mês · Meio</span>
+            </div>
+            <div class="scroll">
+              <table class="grid serp">
+                <thead>
+                  <tr>
+                    <th class="idx">#</th>
+                    <th>Resultado no Google</th>
+                    <th class="num">Marca</th>
+                    <th class="num">Seo</th>
+                    <th class="num soft-col">2025 Marca</th>
+                    <th class="num soft-col">2025 Seo</th>
+                    <th class="num soft-col">2024 Marca</th>
+                    <th class="num soft-col">2024 Seo</th>
+                    <th>Dificuldade</th>
+                  </tr>
+                </thead>
+                <tbody><tr><td class='idx'>1</td><td class='term'><a href='https://anjosdobrasil.net/' target='_blank' rel='noopener'>Anjos do Brasil | Home - Anjos do Brasil</a><span class='dom'>anjosdobrasil.net</span></td><td class='num strong'>2.312</td><td class='num'>1.755</td><td class='num soft-col'>1.752</td><td class='num soft-col'>3.044</td><td class='num soft-col'>1.523</td><td class='num soft-col'>2.258</td><td><span class='diff medio'>Médio</span></td></tr><tr><td class='idx'>2</td><td class='term'><a href='https://gaveaangels.org/' target='_blank' rel='noopener'>Gávea Angels investimento-anjo</a><span class='dom'>gaveaangels.org</span></td><td class='num strong'>208</td><td class='num'>413</td><td class='num soft-col'>648</td><td class='num soft-col'>134</td><td class='num soft-col'>613</td><td class='num soft-col'>38</td><td><span class='diff facil'>Fácil</span></td></tr><tr><td class='idx'>3</td><td class='term'><a href='https://www.instagram.com/anjosdobrasil/' target='_blank' rel='noopener'>Anjos do Brasil (@anjosdobrasil)</a><span class='dom'>instagram.com</span></td><td class='num strong'>—</td><td class='num'>—</td><td class='num soft-col'>—</td><td class='num soft-col'>—</td><td class='num soft-col'>—</td><td class='num soft-col'>—</td><td><span class='diff na'>—</span></td></tr><tr><td class='idx'>4</td><td class='term'><a href='https://blogdodesenvolvimento.bndes.gov.br/categoria/industria-e-comercio-exterior/pInvestidores-anjo-ajudando-empresas-a-sair-do-papel-p/' target='_blank' rel='noopener'>Investidores anjo: ajudando empresas a sair do papel</a><span class='dom'>blogdodesenvolvimento.bndes.gov.br</span></td><td class='num strong'>130.299</td><td class='num'>155.339</td><td class='num soft-col'>254.950</td><td class='num soft-col'>434.088</td><td class='num soft-col'>196.247</td><td class='num soft-col'>203.012</td><td><span class='diff dificil'>Difícil</span></td></tr><tr><td class='idx'>5</td><td class='term'><a href='https://online.pucrs.br/blog/investidor-anjo-financiamento-startups' target='_blank' rel='noopener'>Como funciona o investimento anjo em negócios iniciantes</a><span class='dom'>online.pucrs.br</span></td><td class='num strong'>382.699</td><td class='num'>665.397</td><td class='num soft-col'>407.156</td><td class='num soft-col'>945.821</td><td class='num soft-col'>314.509</td><td class='num soft-col'>715.499</td><td><span class='diff dificil'>Difícil</span></td></tr><tr class='jk'><td class='idx'>6</td><td class='term'><a href='https://joaokepler.com.br/' target='_blank' rel='noopener'>João Kepler | Investidor Nova Economia</a><span class='dom'>joaokepler.com.br · referência</span></td><td class='num strong'>2.000</td><td class='num'>601</td><td class='num soft-col'>0</td><td class='num soft-col'>824</td><td class='num soft-col'>0</td><td class='num soft-col'>883</td><td><span class='diff ref'>Referência</span></td></tr></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="kw">
+            <div class="kw-head">
+              <h4>o que é investidor anjo</h4>
+              <span class="kw-meta">880 buscas/mês · Topo</span>
+            </div>
+            <div class="scroll">
+              <table class="grid serp">
+                <thead>
+                  <tr>
+                    <th class="idx">#</th>
+                    <th>Resultado no Google</th>
+                    <th class="num">Marca</th>
+                    <th class="num">Seo</th>
+                    <th class="num soft-col">2025 Marca</th>
+                    <th class="num soft-col">2025 Seo</th>
+                    <th class="num soft-col">2024 Marca</th>
+                    <th class="num soft-col">2024 Seo</th>
+                    <th>Dificuldade</th>
+                  </tr>
+                </thead>
+                <tbody><tr><td class='idx'>1</td><td class='term'><a href='https://anjosdobrasil.net/o-que-e-investidor-anjo/' target='_blank' rel='noopener'>O que é investidor-anjo</a><span class='dom'>anjosdobrasil.net</span></td><td class='num strong'>2.312</td><td class='num'>1.755</td><td class='num soft-col'>1.752</td><td class='num soft-col'>3.044</td><td class='num soft-col'>1.523</td><td class='num soft-col'>2.258</td><td><span class='diff medio'>Médio</span></td></tr><tr><td class='idx'>2</td><td class='term'><a href='https://conteudos.xpi.com.br/aprenda-a-investir/relatorios/investidor-anjo/' target='_blank' rel='noopener'>Investidor-Anjo: o que é e como encontrar o seu! - Expert XP</a><span class='dom'>conteudos.xpi.com.br</span></td><td class='num strong'>464.378</td><td class='num'>739.438</td><td class='num soft-col'>655.882</td><td class='num soft-col'>659.646</td><td class='num soft-col'>682.945</td><td class='num soft-col'>520.379</td><td><span class='diff dificil'>Difícil</span></td></tr><tr><td class='idx'>3</td><td class='term'><a href='https://blogdodesenvolvimento.bndes.gov.br/categoria/industria-e-comercio-exterior/pInvestidores-anjo-ajudando-empresas-a-sair-do-papel-p/' target='_blank' rel='noopener'>Investidores anjo: ajudando empresas a sair do papel</a><span class='dom'>blogdodesenvolvimento.bndes.gov.br</span></td><td class='num strong'>130.299</td><td class='num'>155.339</td><td class='num soft-col'>254.950</td><td class='num soft-col'>434.088</td><td class='num soft-col'>196.247</td><td class='num soft-col'>203.012</td><td><span class='diff dificil'>Difícil</span></td></tr><tr><td class='idx'>4</td><td class='term'><a href='https://anjosdobrasil.net/' target='_blank' rel='noopener'>Anjos do Brasil | Home - Anjos do Brasil</a><span class='dom'>anjosdobrasil.net</span></td><td class='num strong'>2.312</td><td class='num'>1.755</td><td class='num soft-col'>1.752</td><td class='num soft-col'>3.044</td><td class='num soft-col'>1.523</td><td class='num soft-col'>2.258</td><td><span class='diff medio'>Médio</span></td></tr><tr><td class='idx'>5</td><td class='term'><a href='https://online.pucrs.br/blog/investidor-anjo-financiamento-startups' target='_blank' rel='noopener'>Como funciona o investimento anjo em negócios iniciantes</a><span class='dom'>online.pucrs.br</span></td><td class='num strong'>382.699</td><td class='num'>665.397</td><td class='num soft-col'>407.156</td><td class='num soft-col'>945.821</td><td class='num soft-col'>314.509</td><td class='num soft-col'>715.499</td><td><span class='diff dificil'>Difícil</span></td></tr><tr class='jk'><td class='idx'>6</td><td class='term'><a href='https://joaokepler.com.br/' target='_blank' rel='noopener'>João Kepler | Investidor Nova Economia</a><span class='dom'>joaokepler.com.br · referência</span></td><td class='num strong'>2.000</td><td class='num'>601</td><td class='num soft-col'>0</td><td class='num soft-col'>824</td><td class='num soft-col'>0</td><td class='num soft-col'>883</td><td><span class='diff ref'>Referência</span></td></tr></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="kw">
+            <div class="kw-head">
+              <h4>como conseguir investidor anjo</h4>
+              <span class="kw-meta">170 buscas/mês · Fundo</span>
+            </div>
+            <div class="scroll">
+              <table class="grid serp">
+                <thead>
+                  <tr>
+                    <th class="idx">#</th>
+                    <th>Resultado no Google</th>
+                    <th class="num">Marca</th>
+                    <th class="num">Seo</th>
+                    <th class="num soft-col">2025 Marca</th>
+                    <th class="num soft-col">2025 Seo</th>
+                    <th class="num soft-col">2024 Marca</th>
+                    <th class="num soft-col">2024 Seo</th>
+                    <th>Dificuldade</th>
+                  </tr>
+                </thead>
+                <tbody><tr><td class='idx'>1</td><td class='term'><a href='https://anjosdobrasil.net/' target='_blank' rel='noopener'>Anjos do Brasil | Home - Anjos do Brasil</a><span class='dom'>anjosdobrasil.net</span></td><td class='num strong'>2.312</td><td class='num'>1.755</td><td class='num soft-col'>1.752</td><td class='num soft-col'>3.044</td><td class='num soft-col'>1.523</td><td class='num soft-col'>2.258</td><td><span class='diff medio'>Médio</span></td></tr><tr><td class='idx'>2</td><td class='term'><a href='https://www.contabilizei.com.br/contabilidade-online/como-conseguir-investidor-anjo/' target='_blank' rel='noopener'>Como conseguir investidor anjo para sua empresa em 2026</a><span class='dom'>contabilizei.com.br</span></td><td class='num strong'>121.640</td><td class='num'>1.203.647</td><td class='num soft-col'>138.524</td><td class='num soft-col'>3.130.855</td><td class='num soft-col'>76.383</td><td class='num soft-col'>1.844.523</td><td><span class='diff dificil'>Difícil</span></td></tr><tr><td class='idx'>3</td><td class='term'><a href='https://gaveaangels.org/' target='_blank' rel='noopener'>Gávea Angels investimento-anjo</a><span class='dom'>gaveaangels.org</span></td><td class='num strong'>208</td><td class='num'>413</td><td class='num soft-col'>648</td><td class='num soft-col'>134</td><td class='num soft-col'>613</td><td class='num soft-col'>38</td><td><span class='diff facil'>Fácil</span></td></tr><tr><td class='idx'>4</td><td class='term'><a href='https://www.c6bank.com.br/blog/investidor-anjo' target='_blank' rel='noopener'>Investidor-Anjo: O Que É, Como Funciona e ...</a><span class='dom'>c6bank.com.br</span></td><td class='num strong'>412.841</td><td class='num'>646.657</td><td class='num soft-col'>552.510</td><td class='num soft-col'>182.421</td><td class='num soft-col'>776.741</td><td class='num soft-col'>80.647</td><td><span class='diff dificil'>Difícil</span></td></tr><tr><td class='idx'>5</td><td class='term'><a href='https://blogdodesenvolvimento.bndes.gov.br/categoria/industria-e-comercio-exterior/pInvestidores-anjo-ajudando-empresas-a-sair-do-papel-p/' target='_blank' rel='noopener'>Investidores anjo: ajudando empresas a sair do papel</a><span class='dom'>blogdodesenvolvimento.bndes.gov.br</span></td><td class='num strong'>130.299</td><td class='num'>155.339</td><td class='num soft-col'>254.950</td><td class='num soft-col'>434.088</td><td class='num soft-col'>196.247</td><td class='num soft-col'>203.012</td><td><span class='diff dificil'>Difícil</span></td></tr><tr class='jk'><td class='idx'>6</td><td class='term'><a href='https://joaokepler.com.br/' target='_blank' rel='noopener'>João Kepler | Investidor Nova Economia</a><span class='dom'>joaokepler.com.br · referência</span></td><td class='num strong'>2.000</td><td class='num'>601</td><td class='num soft-col'>0</td><td class='num soft-col'>824</td><td class='num soft-col'>0</td><td class='num soft-col'>883</td><td><span class='diff ref'>Referência</span></td></tr></tbody>
+              </table>
+            </div>
+          </div>
+      </section>
+      <section class="panel wide">
+        <header class="panel-head">
+          <div class="panel-title">
+            <h3>Venture Capital</h3>
+            <p>Fácil 5 · Médio 2 · Difícil 7</p>
+          </div>
+          <span class="tag hard">Difícil</span>
+        </header>
+        
+          <div class="kw">
+            <div class="kw-head">
+              <h4>fusões e aquisições</h4>
+              <span class="kw-meta">1.600 buscas/mês · Meio</span>
+            </div>
+            <div class="scroll">
+              <table class="grid serp">
+                <thead>
+                  <tr>
+                    <th class="idx">#</th>
+                    <th>Resultado no Google</th>
+                    <th class="num">Marca</th>
+                    <th class="num">Seo</th>
+                    <th class="num soft-col">2025 Marca</th>
+                    <th class="num soft-col">2025 Seo</th>
+                    <th class="num soft-col">2024 Marca</th>
+                    <th class="num soft-col">2024 Seo</th>
+                    <th>Dificuldade</th>
+                  </tr>
+                </thead>
+                <tbody><tr><td class='idx'>1</td><td class='term'><a href='https://fusoesaquisicoes.com/' target='_blank' rel='noopener'>Portal Fusões &amp; Aquisições - Notícias, informações e dicas ...</a><span class='dom'>fusoesaquisicoes.com</span></td><td class='num strong'>428</td><td class='num'>2.064</td><td class='num soft-col'>2.715</td><td class='num soft-col'>14.597</td><td class='num soft-col'>4.000</td><td class='num soft-col'>6.615</td><td><span class='diff facil'>Fácil</span></td></tr><tr><td class='idx'>2</td><td class='term'><a href='https://ee.insper.edu.br/cursos/estrategia-e-governanca/fusoes-e-aquisicoes/' target='_blank' rel='noopener'>Fusões e Aquisições</a><span class='dom'>ee.insper.edu.br</span></td><td class='num strong'>76.660</td><td class='num'>110.251</td><td class='num soft-col'>66.293</td><td class='num soft-col'>137.432</td><td class='num soft-col'>59.055</td><td class='num soft-col'>108.168</td><td><span class='diff dificil'>Difícil</span></td></tr><tr><td class='idx'>3</td><td class='term'><a href='https://www.aurum.com.br/blog/fusoes-e-aquisicoes/' target='_blank' rel='noopener'>Fusões e Aquisições: O que é e como funciona o procedimento</a><span class='dom'>aurum.com.br</span></td><td class='num strong'>90.637</td><td class='num'>778.568</td><td class='num soft-col'>91.984</td><td class='num soft-col'>908.054</td><td class='num soft-col'>5.859</td><td class='num soft-col'>840.729</td><td><span class='diff dificil'>Difícil</span></td></tr><tr><td class='idx'>4</td><td class='term'><a href='https://revistas.unifacs.br/index.php/redu/article/download/5226/3342' target='_blank' rel='noopener'>FUSÕES E AQUISIÇÕES - UNIFACS</a><span class='dom'>revistas.unifacs.br</span></td><td class='num strong'>56.637</td><td class='num'>59.521</td><td class='num soft-col'>84.520</td><td class='num soft-col'>150.820</td><td class='num soft-col'>81.078</td><td class='num soft-col'>16.702</td><td><span class='diff dificil'>Difícil</span></td></tr><tr><td class='idx'>5</td><td class='term'><a href='https://pt.wikipedia.org/wiki/Fus%C3%B5es_e_aquisi%C3%A7%C3%B5es' target='_blank' rel='noopener'>Fusões e aquisições – Wikipédia, a enciclopédia livre</a><span class='dom'>pt.wikipedia.org</span></td><td class='num strong'>—</td><td class='num'>—</td><td class='num soft-col'>—</td><td class='num soft-col'>—</td><td class='num soft-col'>—</td><td class='num soft-col'>—</td><td><span class='diff na'>—</span></td></tr><tr class='jk'><td class='idx'>6</td><td class='term'><a href='https://joaokepler.com.br/' target='_blank' rel='noopener'>João Kepler | Investidor Nova Economia</a><span class='dom'>joaokepler.com.br · referência</span></td><td class='num strong'>2.000</td><td class='num'>601</td><td class='num soft-col'>0</td><td class='num soft-col'>824</td><td class='num soft-col'>0</td><td class='num soft-col'>883</td><td><span class='diff ref'>Referência</span></td></tr></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="kw">
+            <div class="kw-head">
+              <h4>o que é private equity</h4>
+              <span class="kw-meta">1.300 buscas/mês · Topo</span>
+            </div>
+            <div class="scroll">
+              <table class="grid serp">
+                <thead>
+                  <tr>
+                    <th class="idx">#</th>
+                    <th>Resultado no Google</th>
+                    <th class="num">Marca</th>
+                    <th class="num">Seo</th>
+                    <th class="num soft-col">2025 Marca</th>
+                    <th class="num soft-col">2025 Seo</th>
+                    <th class="num soft-col">2024 Marca</th>
+                    <th class="num soft-col">2024 Seo</th>
+                    <th>Dificuldade</th>
+                  </tr>
+                </thead>
+                <tbody><tr><td class='idx'>1</td><td class='term'><a href='https://www.suno.com.br/artigos/private-equity/' target='_blank' rel='noopener'>Private Equity: o que é e como funciona o investimento</a><span class='dom'>suno.com.br</span></td><td class='num strong'>9.621</td><td class='num'>417.987</td><td class='num soft-col'>21.443</td><td class='num soft-col'>1.523.332</td><td class='num soft-col'>86.388</td><td class='num soft-col'>3.369.451</td><td><span class='diff dificil'>Difícil</span></td></tr><tr><td class='idx'>2</td><td class='term'><a href='https://www.serasaexperian.com.br/conteudos/private-equity/' target='_blank' rel='noopener'>Private Equity: o que é e como funciona esse investimento?</a><span class='dom'>serasaexperian.com.br</span></td><td class='num strong'>129.548</td><td class='num'>3.878.436</td><td class='num soft-col'>132.077</td><td class='num soft-col'>2.293.085</td><td class='num soft-col'>115.833</td><td class='num soft-col'>1.184.912</td><td><span class='diff dificil'>Difícil</span></td></tr><tr><td class='idx'>3</td><td class='term'><a href='https://www.bancocarregosa.com/pt/insights/conteudos/private-equity-o-que-e-e-porque-e-importante/' target='_blank' rel='noopener'>Private Equity: O que é e porque é importante?</a><span class='dom'>bancocarregosa.com</span></td><td class='num strong'>168</td><td class='num'>2.142</td><td class='num soft-col'>72</td><td class='num soft-col'>255</td><td class='num soft-col'>72</td><td class='num soft-col'>50</td><td><span class='diff facil'>Fácil</span></td></tr><tr><td class='idx'>4</td><td class='term'><a href='https://br.ebury.com/blog/private-equity-e-venture-capital' target='_blank' rel='noopener'>Private Equity e Venture Capital: quais são as diferenças?</a><span class='dom'>br.ebury.com</span></td><td class='num strong'>2.601</td><td class='num'>6.905</td><td class='num soft-col'>5.214</td><td class='num soft-col'>2.395</td><td class='num soft-col'>1.597</td><td class='num soft-col'>4.019</td><td><span class='diff medio'>Médio</span></td></tr><tr><td class='idx'>5</td><td class='term'><a href='https://www.distrito.me/blog/o-que-e-private-equity' target='_blank' rel='noopener'>O que é Private Equity? Entenda como funciona e ...</a><span class='dom'>distrito.me</span></td><td class='num strong'>942</td><td class='num'>58.844</td><td class='num soft-col'>10.825</td><td class='num soft-col'>51.291</td><td class='num soft-col'>13.301</td><td class='num soft-col'>16.479</td><td><span class='diff facil'>Fácil</span></td></tr><tr class='jk'><td class='idx'>6</td><td class='term'><a href='https://joaokepler.com.br/' target='_blank' rel='noopener'>João Kepler | Investidor Nova Economia</a><span class='dom'>joaokepler.com.br · referência</span></td><td class='num strong'>2.000</td><td class='num'>601</td><td class='num soft-col'>0</td><td class='num soft-col'>824</td><td class='num soft-col'>0</td><td class='num soft-col'>883</td><td><span class='diff ref'>Referência</span></td></tr></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="kw">
+            <div class="kw-head">
+              <h4>private equity o que é</h4>
+              <span class="kw-meta">1.300 buscas/mês · Topo</span>
+            </div>
+            <div class="scroll">
+              <table class="grid serp">
+                <thead>
+                  <tr>
+                    <th class="idx">#</th>
+                    <th>Resultado no Google</th>
+                    <th class="num">Marca</th>
+                    <th class="num">Seo</th>
+                    <th class="num soft-col">2025 Marca</th>
+                    <th class="num soft-col">2025 Seo</th>
+                    <th class="num soft-col">2024 Marca</th>
+                    <th class="num soft-col">2024 Seo</th>
+                    <th>Dificuldade</th>
+                  </tr>
+                </thead>
+                <tbody><tr><td class='idx'>1</td><td class='term'><a href='https://www.suno.com.br/artigos/private-equity/' target='_blank' rel='noopener'>Private Equity: o que é e como funciona o investimento</a><span class='dom'>suno.com.br</span></td><td class='num strong'>9.621</td><td class='num'>417.987</td><td class='num soft-col'>21.443</td><td class='num soft-col'>1.523.332</td><td class='num soft-col'>86.388</td><td class='num soft-col'>3.369.451</td><td><span class='diff dificil'>Difícil</span></td></tr><tr><td class='idx'>2</td><td class='term'><a href='https://www.bancocarregosa.com/pt/insights/conteudos/private-equity-o-que-e-e-porque-e-importante/' target='_blank' rel='noopener'>Private Equity: O que é e porque é importante?</a><span class='dom'>bancocarregosa.com</span></td><td class='num strong'>168</td><td class='num'>2.142</td><td class='num soft-col'>72</td><td class='num soft-col'>255</td><td class='num soft-col'>72</td><td class='num soft-col'>50</td><td><span class='diff facil'>Fácil</span></td></tr><tr><td class='idx'>3</td><td class='term'><a href='https://www.serasaexperian.com.br/conteudos/private-equity/' target='_blank' rel='noopener'>Private Equity: o que é e como funciona esse investimento?</a><span class='dom'>serasaexperian.com.br</span></td><td class='num strong'>129.548</td><td class='num'>3.878.436</td><td class='num soft-col'>132.077</td><td class='num soft-col'>2.293.085</td><td class='num soft-col'>115.833</td><td class='num soft-col'>1.184.912</td><td><span class='diff dificil'>Difícil</span></td></tr><tr><td class='idx'>4</td><td class='term'><a href='https://br.ebury.com/blog/private-equity-e-venture-capital' target='_blank' rel='noopener'>Private Equity e Venture Capital: quais são as diferenças?</a><span class='dom'>br.ebury.com</span></td><td class='num strong'>2.601</td><td class='num'>6.905</td><td class='num soft-col'>5.214</td><td class='num soft-col'>2.395</td><td class='num soft-col'>1.597</td><td class='num soft-col'>4.019</td><td><span class='diff medio'>Médio</span></td></tr><tr><td class='idx'>5</td><td class='term'><a href='https://www.distrito.me/blog/o-que-e-private-equity' target='_blank' rel='noopener'>O que é Private Equity? Entenda como funciona e ...</a><span class='dom'>distrito.me</span></td><td class='num strong'>942</td><td class='num'>58.844</td><td class='num soft-col'>10.825</td><td class='num soft-col'>51.291</td><td class='num soft-col'>13.301</td><td class='num soft-col'>16.479</td><td><span class='diff facil'>Fácil</span></td></tr><tr class='jk'><td class='idx'>6</td><td class='term'><a href='https://joaokepler.com.br/' target='_blank' rel='noopener'>João Kepler | Investidor Nova Economia</a><span class='dom'>joaokepler.com.br · referência</span></td><td class='num strong'>2.000</td><td class='num'>601</td><td class='num soft-col'>0</td><td class='num soft-col'>824</td><td class='num soft-col'>0</td><td class='num soft-col'>883</td><td><span class='diff ref'>Referência</span></td></tr></tbody>
+              </table>
+            </div>
+          </div>
+      </section>
+      <section class="panel wide">
+        <header class="panel-head">
+          <div class="panel-title">
+            <h3>Equity</h3>
+            <p>Fácil 4 · Médio 1 · Difícil 10</p>
+          </div>
+          <span class="tag hard">Difícil</span>
+        </header>
+        
+          <div class="kw">
+            <div class="kw-head">
+              <h4>vesting</h4>
+              <span class="kw-meta">9.900 buscas/mês · Meio</span>
+            </div>
+            <div class="scroll">
+              <table class="grid serp">
+                <thead>
+                  <tr>
+                    <th class="idx">#</th>
+                    <th>Resultado no Google</th>
+                    <th class="num">Marca</th>
+                    <th class="num">Seo</th>
+                    <th class="num soft-col">2025 Marca</th>
+                    <th class="num soft-col">2025 Seo</th>
+                    <th class="num soft-col">2024 Marca</th>
+                    <th class="num soft-col">2024 Seo</th>
+                    <th>Dificuldade</th>
+                  </tr>
+                </thead>
+                <tbody><tr><td class='idx'>1</td><td class='term'><a href='https://blog.cubo.itau/vesting' target='_blank' rel='noopener'>Vesting: entenda o que é e como funciona</a><span class='dom'>blog.cubo.itau</span></td><td class='num strong'>13.746</td><td class='num'>9.782</td><td class='num soft-col'>0</td><td class='num soft-col'>0</td><td class='num soft-col'>0</td><td class='num soft-col'>0</td><td><span class='diff dificil'>Difícil</span></td></tr><tr><td class='idx'>2</td><td class='term'><a href='https://www.aurum.com.br/blog/contrato-de-vesting/' target='_blank' rel='noopener'>Contrato de Vesting: o que é, exemplo prático e como fazer</a><span class='dom'>aurum.com.br</span></td><td class='num strong'>90.637</td><td class='num'>778.568</td><td class='num soft-col'>91.984</td><td class='num soft-col'>908.054</td><td class='num soft-col'>5.859</td><td class='num soft-col'>840.729</td><td><span class='diff dificil'>Difícil</span></td></tr><tr><td class='idx'>3</td><td class='term'><a href='https://www.migalhas.com.br/depeso/427128/saiba-o-que-e-e-como-funciona-o-cliff-e-vesting' target='_blank' rel='noopener'>Saiba o que é e como funciona o cliff e vesting</a><span class='dom'>migalhas.com.br</span></td><td class='num strong'>28.271</td><td class='num'>1.118.066</td><td class='num soft-col'>72.924</td><td class='num soft-col'>1.430.878</td><td class='num soft-col'>72.689</td><td class='num soft-col'>991.580</td><td><span class='diff dificil'>Difícil</span></td></tr><tr><td class='idx'>4</td><td class='term'><a href='https://revista.direito.ufmg.br/index.php/revista/pt_BR/article/view/1786' target='_blank' rel='noopener'>O CONTRATO DE VESTING - 10.12818/P.0304-2340.2016 ...</a><span class='dom'>revista.direito.ufmg.br</span></td><td class='num strong'>699.933</td><td class='num'>3.216.387</td><td class='num soft-col'>753.685</td><td class='num soft-col'>3.448.123</td><td class='num soft-col'>706.397</td><td class='num soft-col'>3.839.314</td><td><span class='diff dificil'>Difícil</span></td></tr><tr><td class='idx'>5</td><td class='term'><a href='https://blog.pris.com.br/entenda-como-funcionam-os-diferentes-tipos-de-vesting' target='_blank' rel='noopener'>Entenda como funcionam os diferentes tipos de vesting</a><span class='dom'>blog.pris.com.br</span></td><td class='num strong'>1.776</td><td class='num'>5.471</td><td class='num soft-col'>4.183</td><td class='num soft-col'>4.057</td><td class='num soft-col'>3.263</td><td class='num soft-col'>2.458</td><td><span class='diff facil'>Fácil</span></td></tr><tr class='jk'><td class='idx'>6</td><td class='term'><a href='https://joaokepler.com.br/' target='_blank' rel='noopener'>João Kepler | Investidor Nova Economia</a><span class='dom'>joaokepler.com.br · referência</span></td><td class='num strong'>2.000</td><td class='num'>601</td><td class='num soft-col'>0</td><td class='num soft-col'>824</td><td class='num soft-col'>0</td><td class='num soft-col'>883</td><td><span class='diff ref'>Referência</span></td></tr></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="kw">
+            <div class="kw-head">
+              <h4>o que é vesting</h4>
+              <span class="kw-meta">390 buscas/mês · Topo</span>
+            </div>
+            <div class="scroll">
+              <table class="grid serp">
+                <thead>
+                  <tr>
+                    <th class="idx">#</th>
+                    <th>Resultado no Google</th>
+                    <th class="num">Marca</th>
+                    <th class="num">Seo</th>
+                    <th class="num soft-col">2025 Marca</th>
+                    <th class="num soft-col">2025 Seo</th>
+                    <th class="num soft-col">2024 Marca</th>
+                    <th class="num soft-col">2024 Seo</th>
+                    <th>Dificuldade</th>
+                  </tr>
+                </thead>
+                <tbody><tr><td class='idx'>1</td><td class='term'><a href='https://blog.cubo.itau/vesting' target='_blank' rel='noopener'>Vesting: entenda o que é e como funciona</a><span class='dom'>blog.cubo.itau</span></td><td class='num strong'>13.746</td><td class='num'>9.782</td><td class='num soft-col'>0</td><td class='num soft-col'>0</td><td class='num soft-col'>0</td><td class='num soft-col'>0</td><td><span class='diff dificil'>Difícil</span></td></tr><tr><td class='idx'>2</td><td class='term'><a href='https://www.aurum.com.br/blog/contrato-de-vesting/' target='_blank' rel='noopener'>Contrato de Vesting: o que é, exemplo prático e como fazer</a><span class='dom'>aurum.com.br</span></td><td class='num strong'>90.637</td><td class='num'>778.568</td><td class='num soft-col'>91.984</td><td class='num soft-col'>908.054</td><td class='num soft-col'>5.859</td><td class='num soft-col'>840.729</td><td><span class='diff dificil'>Difícil</span></td></tr><tr><td class='idx'>3</td><td class='term'><a href='https://www.migalhas.com.br/depeso/427128/saiba-o-que-e-e-como-funciona-o-cliff-e-vesting' target='_blank' rel='noopener'>Saiba o que é e como funciona o cliff e vesting</a><span class='dom'>migalhas.com.br</span></td><td class='num strong'>28.271</td><td class='num'>1.118.066</td><td class='num soft-col'>72.924</td><td class='num soft-col'>1.430.878</td><td class='num soft-col'>72.689</td><td class='num soft-col'>991.580</td><td><span class='diff dificil'>Difícil</span></td></tr><tr><td class='idx'>4</td><td class='term'><a href='https://www.totvs.com/blog/gestao-juridica/vesting/' target='_blank' rel='noopener'>Vesting: o que é e como funciona esse tipo de contrato</a><span class='dom'>totvs.com</span></td><td class='num strong'>147.971</td><td class='num'>517.364</td><td class='num soft-col'>158.582</td><td class='num soft-col'>928.609</td><td class='num soft-col'>140.759</td><td class='num soft-col'>759.341</td><td><span class='diff dificil'>Difícil</span></td></tr><tr><td class='idx'>5</td><td class='term'><a href='https://blog.pris.com.br/o-que-e-vesting-saiba-qual-e-a-importancia-desse-contrato' target='_blank' rel='noopener'>O que é vesting: saiba qual é a importância desse contrato</a><span class='dom'>blog.pris.com.br</span></td><td class='num strong'>1.776</td><td class='num'>5.471</td><td class='num soft-col'>4.183</td><td class='num soft-col'>4.057</td><td class='num soft-col'>3.263</td><td class='num soft-col'>2.458</td><td><span class='diff facil'>Fácil</span></td></tr><tr class='jk'><td class='idx'>6</td><td class='term'><a href='https://joaokepler.com.br/' target='_blank' rel='noopener'>João Kepler | Investidor Nova Economia</a><span class='dom'>joaokepler.com.br · referência</span></td><td class='num strong'>2.000</td><td class='num'>601</td><td class='num soft-col'>0</td><td class='num soft-col'>824</td><td class='num soft-col'>0</td><td class='num soft-col'>883</td><td><span class='diff ref'>Referência</span></td></tr></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="kw">
+            <div class="kw-head">
+              <h4>o que é equity</h4>
+              <span class="kw-meta">1.900 buscas/mês · Topo</span>
+            </div>
+            <div class="scroll">
+              <table class="grid serp">
+                <thead>
+                  <tr>
+                    <th class="idx">#</th>
+                    <th>Resultado no Google</th>
+                    <th class="num">Marca</th>
+                    <th class="num">Seo</th>
+                    <th class="num soft-col">2025 Marca</th>
+                    <th class="num soft-col">2025 Seo</th>
+                    <th class="num soft-col">2024 Marca</th>
+                    <th class="num soft-col">2024 Seo</th>
+                    <th>Dificuldade</th>
+                  </tr>
+                </thead>
+                <tbody><tr><td class='idx'>1</td><td class='term'><a href='https://www.infomoney.com.br/guias/equity/' target='_blank' rel='noopener'>Equity: o que é esse investimento e como funciona na prática</a><span class='dom'>infomoney.com.br</span></td><td class='num strong'>652.865</td><td class='num'>4.012.570</td><td class='num soft-col'>702.164</td><td class='num soft-col'>9.091.710</td><td class='num soft-col'>831.864</td><td class='num soft-col'>10.021.000</td><td><span class='diff dificil'>Difícil</span></td></tr><tr><td class='idx'>2</td><td class='term'><a href='https://strong.com.br/glossario/o-que-e-equity-patrimonio-liquido-e-como-ele-e-calculado/' target='_blank' rel='noopener'>O que é Equity (Patrimônio Líquido) e como ele é calculado?</a><span class='dom'>strong.com.br</span></td><td class='num strong'>7.627</td><td class='num'>112.408</td><td class='num soft-col'>14.218</td><td class='num soft-col'>27.879</td><td class='num soft-col'>16.219</td><td class='num soft-col'>4.119</td><td><span class='diff dificil'>Difícil</span></td></tr><tr><td class='idx'>3</td><td class='term'><a href='https://exxata.com.br/blog/empresarial/equity-e-valuation-entenda-a-relacao-entre-patrimonio-liquido-e-o-valor-da-empresa/' target='_blank' rel='noopener'>Equity e Valuation: Entenda a relação entre patrimônio ...</a><span class='dom'>exxata.com.br</span></td><td class='num strong'>352</td><td class='num'>844</td><td class='num soft-col'>264</td><td class='num soft-col'>1</td><td class='num soft-col'>114</td><td class='num soft-col'>18</td><td><span class='diff facil'>Fácil</span></td></tr><tr><td class='idx'>4</td><td class='term'><a href='https://blog.inco.vc/investimentos/equity-como-funciona-investimento/' target='_blank' rel='noopener'>O que é equity e como esse investimento funciona na prática?</a><span class='dom'>blog.inco.vc</span></td><td class='num strong'>3.288</td><td class='num'>6.786</td><td class='num soft-col'>14.688</td><td class='num soft-col'>12.658</td><td class='num soft-col'>8.659</td><td class='num soft-col'>12.122</td><td><span class='diff medio'>Médio</span></td></tr><tr><td class='idx'>5</td><td class='term'><a href='https://www.ipeavaliacoes.com.br/post/o-que-%C3%A9-equity-value-e-para-que-serve' target='_blank' rel='noopener'>O que é Equity Value e para que serve?</a><span class='dom'>ipeavaliacoes.com.br</span></td><td class='num strong'>0</td><td class='num'>625</td><td class='num soft-col'>0</td><td class='num soft-col'>597</td><td class='num soft-col'>0</td><td class='num soft-col'>29</td><td><span class='diff facil'>Fácil</span></td></tr><tr class='jk'><td class='idx'>6</td><td class='term'><a href='https://joaokepler.com.br/' target='_blank' rel='noopener'>João Kepler | Investidor Nova Economia</a><span class='dom'>joaokepler.com.br · referência</span></td><td class='num strong'>2.000</td><td class='num'>601</td><td class='num soft-col'>0</td><td class='num soft-col'>824</td><td class='num soft-col'>0</td><td class='num soft-col'>883</td><td><span class='diff ref'>Referência</span></td></tr></tbody>
+              </table>
+            </div>
+          </div>
+      </section>
+      <section class="panel wide">
+        <header class="panel-head">
+          <div class="panel-title">
+            <h3>Captação</h3>
+            <p>Fácil 9 · Médio 1 · Difícil 5</p>
+          </div>
+          <span class="tag op">Oportunidade</span>
+        </header>
+        
+          <div class="kw">
+            <div class="kw-head">
+              <h4>pitch deck</h4>
+              <span class="kw-meta">3.600 buscas/mês · Meio</span>
+            </div>
+            <div class="scroll">
+              <table class="grid serp">
+                <thead>
+                  <tr>
+                    <th class="idx">#</th>
+                    <th>Resultado no Google</th>
+                    <th class="num">Marca</th>
+                    <th class="num">Seo</th>
+                    <th class="num soft-col">2025 Marca</th>
+                    <th class="num soft-col">2025 Seo</th>
+                    <th class="num soft-col">2024 Marca</th>
+                    <th class="num soft-col">2024 Seo</th>
+                    <th>Dificuldade</th>
+                  </tr>
+                </thead>
+                <tbody><tr><td class='idx'>1</td><td class='term'><a href='https://abstartups.com.br/10-pitch-decks-lendarios-para-voce-se-inspirar/' target='_blank' rel='noopener'>10 Pitch Decks lendários para você se inspirar</a><span class='dom'>abstartups.com.br</span></td><td class='num strong'>775</td><td class='num'>8.589</td><td class='num soft-col'>985</td><td class='num soft-col'>18.863</td><td class='num soft-col'>1.928</td><td class='num soft-col'>20.432</td><td><span class='diff facil'>Fácil</span></td></tr><tr><td class='idx'>2</td><td class='term'><a href='https://www.acate.com.br/blog-da-acate/pitch-deck/' target='_blank' rel='noopener'>Pitch Deck: o que é, como fazer, template e tudo ...</a><span class='dom'>acate.com.br</span></td><td class='num strong'>5.219</td><td class='num'>2.781</td><td class='num soft-col'>7.175</td><td class='num soft-col'>4.372</td><td class='num soft-col'>6.571</td><td class='num soft-col'>1.442</td><td><span class='diff medio'>Médio</span></td></tr><tr><td class='idx'>3</td><td class='term'><a href='https://www.canva.com/pt_br/apresentacoes/pitch-deck/' target='_blank' rel='noopener'>Como criar um pitch deck: Como fazer, modelos e dicas</a><span class='dom'>canva.com</span></td><td class='num strong'>13.893.414</td><td class='num'>7.628.125</td><td class='num soft-col'>11.265.201</td><td class='num soft-col'>7.356.072</td><td class='num soft-col'>9.935.800</td><td class='num soft-col'>3.324.591</td><td><span class='diff dificil'>Difícil</span></td></tr><tr><td class='idx'>4</td><td class='term'><a href='https://pitch.com/templates/collections/Pitch-deck' target='_blank' rel='noopener'>20+ Free Pitch Deck Templates [Fully-Customizable]</a><span class='dom'>pitch.com</span></td><td class='num strong'>232</td><td class='num'>13.741</td><td class='num soft-col'>144</td><td class='num soft-col'>5.789</td><td class='num soft-col'>72</td><td class='num soft-col'>481</td><td><span class='diff facil'>Fácil</span></td></tr><tr><td class='idx'>5</td><td class='term'><a href='https://miro.com/pt/modelos/pitch-deck/' target='_blank' rel='noopener'>Template de Pitch Deck | Modelo de Apresentação ...</a><span class='dom'>miro.com</span></td><td class='num strong'>65.001</td><td class='num'>308.814</td><td class='num soft-col'>109.508</td><td class='num soft-col'>361.315</td><td class='num soft-col'>105.194</td><td class='num soft-col'>256.875</td><td><span class='diff dificil'>Difícil</span></td></tr><tr class='jk'><td class='idx'>6</td><td class='term'><a href='https://joaokepler.com.br/' target='_blank' rel='noopener'>João Kepler | Investidor Nova Economia</a><span class='dom'>joaokepler.com.br · referência</span></td><td class='num strong'>2.000</td><td class='num'>601</td><td class='num soft-col'>0</td><td class='num soft-col'>824</td><td class='num soft-col'>0</td><td class='num soft-col'>883</td><td><span class='diff ref'>Referência</span></td></tr></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="kw">
+            <div class="kw-head">
+              <h4>fundraising</h4>
+              <span class="kw-meta">1.300 buscas/mês · Topo</span>
+            </div>
+            <div class="scroll">
+              <table class="grid serp">
+                <thead>
+                  <tr>
+                    <th class="idx">#</th>
+                    <th>Resultado no Google</th>
+                    <th class="num">Marca</th>
+                    <th class="num">Seo</th>
+                    <th class="num soft-col">2025 Marca</th>
+                    <th class="num soft-col">2025 Seo</th>
+                    <th class="num soft-col">2024 Marca</th>
+                    <th class="num soft-col">2024 Seo</th>
+                    <th>Dificuldade</th>
+                  </tr>
+                </thead>
+                <tbody><tr><td class='idx'>1</td><td class='term'><a href='https://liga.ventures/insights/artigos/o-que-e-fundraising-e-como-estar-preparado-para-as-etapas-do-processo/' target='_blank' rel='noopener'>Fundraising: entenda o que é e como funciona o processo</a><span class='dom'>liga.ventures</span></td><td class='num strong'>0</td><td class='num'>5.422</td><td class='num soft-col'>466</td><td class='num soft-col'>17.561</td><td class='num soft-col'>516</td><td class='num soft-col'>12.675</td><td><span class='diff facil'>Fácil</span></td></tr><tr><td class='idx'>2</td><td class='term'><a href='https://www.iberdrola.com/compromisso-social/que-e-fundraising' target='_blank' rel='noopener'>O que é o &#x27;fundraising&#x27;? | Atividades de angariação de fundos</a><span class='dom'>iberdrola.com</span></td><td class='num strong'>350</td><td class='num'>269.460</td><td class='num soft-col'>2.549</td><td class='num soft-col'>614.149</td><td class='num soft-col'>2.372</td><td class='num soft-col'>514.463</td><td><span class='diff facil'>Fácil</span></td></tr><tr><td class='idx'>3</td><td class='term'><a href='https://dictionary.cambridge.org/pt/dicionario/ingles-portugues/fundraising' target='_blank' rel='noopener'>FUNDRAISING | tradução de inglês para português</a><span class='dom'>dictionary.cambridge.org</span></td><td class='num strong'>149.558</td><td class='num'>5.943.110</td><td class='num soft-col'>183.308</td><td class='num soft-col'>9.257.639</td><td class='num soft-col'>130.974</td><td class='num soft-col'>7.415.903</td><td><span class='diff dificil'>Difícil</span></td></tr><tr><td class='idx'>4</td><td class='term'><a href='https://gogetfunding.com/' target='_blank' rel='noopener'>GoGetFunding | #1 Fundraising Website for Personal Causes</a><span class='dom'>gogetfunding.com</span></td><td class='num strong'>72</td><td class='num'>411</td><td class='num soft-col'>0</td><td class='num soft-col'>71</td><td class='num soft-col'>0</td><td class='num soft-col'>20</td><td><span class='diff facil'>Fácil</span></td></tr><tr><td class='idx'>5</td><td class='term'><a href='https://blog.leverpro.com.br/post/fundraising' target='_blank' rel='noopener'>Fundraising: Guia Completo para Captação de Recursos ...</a><span class='dom'>blog.leverpro.com.br</span></td><td class='num strong'>1.806</td><td class='num'>3.666</td><td class='num soft-col'>776</td><td class='num soft-col'>15.298</td><td class='num soft-col'>424</td><td class='num soft-col'>5.075</td><td><span class='diff facil'>Fácil</span></td></tr><tr class='jk'><td class='idx'>6</td><td class='term'><a href='https://joaokepler.com.br/' target='_blank' rel='noopener'>João Kepler | Investidor Nova Economia</a><span class='dom'>joaokepler.com.br · referência</span></td><td class='num strong'>2.000</td><td class='num'>601</td><td class='num soft-col'>0</td><td class='num soft-col'>824</td><td class='num soft-col'>0</td><td class='num soft-col'>883</td><td><span class='diff ref'>Referência</span></td></tr></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="kw">
+            <div class="kw-head">
+              <h4>captação de recursos</h4>
+              <span class="kw-meta">1.300 buscas/mês · Meio</span>
+            </div>
+            <div class="scroll">
+              <table class="grid serp">
+                <thead>
+                  <tr>
+                    <th class="idx">#</th>
+                    <th>Resultado no Google</th>
+                    <th class="num">Marca</th>
+                    <th class="num">Seo</th>
+                    <th class="num soft-col">2025 Marca</th>
+                    <th class="num soft-col">2025 Seo</th>
+                    <th class="num soft-col">2024 Marca</th>
+                    <th class="num soft-col">2024 Seo</th>
+                    <th>Dificuldade</th>
+                  </tr>
+                </thead>
+                <tbody><tr><td class='idx'>1</td><td class='term'><a href='https://captadores.org.br/captacao-de-recursos/' target='_blank' rel='noopener'>Captação de Recursos</a><span class='dom'>captadores.org.br</span></td><td class='num strong'>1.121</td><td class='num'>4.570</td><td class='num soft-col'>2.586</td><td class='num soft-col'>4.466</td><td class='num soft-col'>3.162</td><td class='num soft-col'>3.638</td><td><span class='diff facil'>Fácil</span></td></tr><tr><td class='idx'>2</td><td class='term'><a href='https://www.gov.br/sri/pt-br/backup-secretaria-de-governo/articulacao-social/portal-organizacao-sociedade-civil/recursos' target='_blank' rel='noopener'>Captação de Recursos — Secretaria de Relações Institucionais</a><span class='dom'>gov.br</span></td><td class='num strong'>0</td><td class='num'>394.695</td><td class='num soft-col'>0</td><td class='num soft-col'>858.973</td><td class='num soft-col'>0</td><td class='num soft-col'>494.005</td><td><span class='diff facil'>Fácil</span></td></tr><tr><td class='idx'>3</td><td class='term'><a href='https://capta.org.br/fontes-de-financiamento/oportunidades/' target='_blank' rel='noopener'>Oportunidades e editais abertos - Capta</a><span class='dom'>capta.org.br</span></td><td class='num strong'>0</td><td class='num'>12.445</td><td class='num soft-col'>0</td><td class='num soft-col'>18.369</td><td class='num soft-col'>0</td><td class='num soft-col'>10.792</td><td><span class='diff facil'>Fácil</span></td></tr><tr><td class='idx'>4</td><td class='term'><a href='https://www.mpgo.mp.br/portal/system/resources/W1siZiIsIjIwMTMvMDQvMTYvMTJfMzhfMTVfNzczX29uZGVfb2J0ZXJfcmVjdXJzb3MucGRmIl1d/onde_obter_recursos.pdf' target='_blank' rel='noopener'>Onde Obter Recursos</a><span class='dom'>mpgo.mp.br</span></td><td class='num strong'>41.820</td><td class='num'>69.193</td><td class='num soft-col'>50.046</td><td class='num soft-col'>121.563</td><td class='num soft-col'>52.576</td><td class='num soft-col'>87.023</td><td><span class='diff dificil'>Difícil</span></td></tr><tr><td class='idx'>5</td><td class='term'><a href='https://firjan.com.br/firjan/empresas/competitividade-empresarial/captacao-de-recursos-para-projetos/default.htm' target='_blank' rel='noopener'>Captação de Recursos para Projetos</a><span class='dom'>firjan.com.br</span></td><td class='num strong'>60.392</td><td class='num'>64.504</td><td class='num soft-col'>97.065</td><td class='num soft-col'>72.420</td><td class='num soft-col'>49.835</td><td class='num soft-col'>25.144</td><td><span class='diff dificil'>Difícil</span></td></tr><tr class='jk'><td class='idx'>6</td><td class='term'><a href='https://joaokepler.com.br/' target='_blank' rel='noopener'>João Kepler | Investidor Nova Economia</a><span class='dom'>joaokepler.com.br · referência</span></td><td class='num strong'>2.000</td><td class='num'>601</td><td class='num soft-col'>0</td><td class='num soft-col'>824</td><td class='num soft-col'>0</td><td class='num soft-col'>883</td><td><span class='diff ref'>Referência</span></td></tr></tbody>
+              </table>
+            </div>
+          </div>
+      </section>
+      <section class="panel wide">
+        <header class="panel-head">
+          <div class="panel-title">
+            <h3>Valuation</h3>
+            <p>Fácil 2 · Médio 1 · Difícil 11</p>
+          </div>
+          <span class="tag hard">Difícil</span>
+        </header>
+        
+          <div class="kw">
+            <div class="kw-head">
+              <h4>enterprise value</h4>
+              <span class="kw-meta">14.800 buscas/mês · Topo</span>
+            </div>
+            <div class="scroll">
+              <table class="grid serp">
+                <thead>
+                  <tr>
+                    <th class="idx">#</th>
+                    <th>Resultado no Google</th>
+                    <th class="num">Marca</th>
+                    <th class="num">Seo</th>
+                    <th class="num soft-col">2025 Marca</th>
+                    <th class="num soft-col">2025 Seo</th>
+                    <th class="num soft-col">2024 Marca</th>
+                    <th class="num soft-col">2024 Seo</th>
+                    <th>Dificuldade</th>
+                  </tr>
+                </thead>
+                <tbody><tr><td class='idx'>1</td><td class='term'><a href='https://www.suno.com.br/artigos/enterprise-value-valor-da-firma/' target='_blank' rel='noopener'>O que é Enterprise Value (Valor da Firma)?</a><span class='dom'>suno.com.br</span></td><td class='num strong'>9.621</td><td class='num'>417.987</td><td class='num soft-col'>21.443</td><td class='num soft-col'>1.523.332</td><td class='num soft-col'>86.388</td><td class='num soft-col'>3.369.451</td><td><span class='diff dificil'>Difícil</span></td></tr><tr><td class='idx'>2</td><td class='term'><a href='https://www.investopedia.com/terms/e/enterprisevalue.asp' target='_blank' rel='noopener'>Enterprise Value (EV) Formula and What It Means</a><span class='dom'>investopedia.com</span></td><td class='num strong'>2.951</td><td class='num'>560.030</td><td class='num soft-col'>3.482</td><td class='num soft-col'>538.820</td><td class='num soft-col'>2.523</td><td class='num soft-col'>355.649</td><td><span class='diff medio'>Médio</span></td></tr><tr><td class='idx'>3</td><td class='term'><a href='https://statusinvest.com.br/termos/e/enterprise-value' target='_blank' rel='noopener'>Enterprise Value (EV): saiba o que é e como calcular</a><span class='dom'>statusinvest.com.br</span></td><td class='num strong'>250.510</td><td class='num'>2.294.341</td><td class='num soft-col'>779.395</td><td class='num soft-col'>3.123.812</td><td class='num soft-col'>989.376</td><td class='num soft-col'>2.273.879</td><td><span class='diff dificil'>Difícil</span></td></tr><tr><td class='idx'>4</td><td class='term'><a href='https://www.netsuite.com/portal/br/resource/articles/financial-management/enterprise-value.shtml' target='_blank' rel='noopener'>O que é Enterprise Value (EV)? Importância e Como Calcular</a><span class='dom'>netsuite.com</span></td><td class='num strong'>21.729</td><td class='num'>26.607</td><td class='num soft-col'>19.408</td><td class='num soft-col'>9.170</td><td class='num soft-col'>5.275</td><td class='num soft-col'>13.996</td><td><span class='diff dificil'>Difícil</span></td></tr><tr><td class='idx'>5</td><td class='term'><a href='https://en.wikipedia.org/wiki/Enterprise_value' target='_blank' rel='noopener'>Enterprise value</a><span class='dom'>en.wikipedia.org</span></td><td class='num strong'>—</td><td class='num'>—</td><td class='num soft-col'>—</td><td class='num soft-col'>—</td><td class='num soft-col'>—</td><td class='num soft-col'>—</td><td><span class='diff na'>—</span></td></tr><tr class='jk'><td class='idx'>6</td><td class='term'><a href='https://joaokepler.com.br/' target='_blank' rel='noopener'>João Kepler | Investidor Nova Economia</a><span class='dom'>joaokepler.com.br · referência</span></td><td class='num strong'>2.000</td><td class='num'>601</td><td class='num soft-col'>0</td><td class='num soft-col'>824</td><td class='num soft-col'>0</td><td class='num soft-col'>883</td><td><span class='diff ref'>Referência</span></td></tr></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="kw">
+            <div class="kw-head">
+              <h4>o que é valuation</h4>
+              <span class="kw-meta">3.600 buscas/mês · Topo</span>
+            </div>
+            <div class="scroll">
+              <table class="grid serp">
+                <thead>
+                  <tr>
+                    <th class="idx">#</th>
+                    <th>Resultado no Google</th>
+                    <th class="num">Marca</th>
+                    <th class="num">Seo</th>
+                    <th class="num soft-col">2025 Marca</th>
+                    <th class="num soft-col">2025 Seo</th>
+                    <th class="num soft-col">2024 Marca</th>
+                    <th class="num soft-col">2024 Seo</th>
+                    <th>Dificuldade</th>
+                  </tr>
+                </thead>
+                <tbody><tr><td class='idx'>1</td><td class='term'><a href='https://fia.com.br/blog/valuation/' target='_blank' rel='noopener'>Valuation: o que é e como calcular o valor de uma empresa?</a><span class='dom'>fia.com.br</span></td><td class='num strong'>11.744</td><td class='num'>788.703</td><td class='num soft-col'>20.739</td><td class='num soft-col'>661.877</td><td class='num soft-col'>22.802</td><td class='num soft-col'>1.299.663</td><td><span class='diff dificil'>Difícil</span></td></tr><tr><td class='idx'>2</td><td class='term'><a href='https://blog.nubank.com.br/valuation-o-que-e-como-avaliar-uma-empresa/' target='_blank' rel='noopener'>O que é valuation e como fazer esse cálculo?</a><span class='dom'>blog.nubank.com.br</span></td><td class='num strong'>2.937.621</td><td class='num'>863.626</td><td class='num soft-col'>4.470.099</td><td class='num soft-col'>1.392.065</td><td class='num soft-col'>3.447.189</td><td class='num soft-col'>1.235.923</td><td><span class='diff dificil'>Difícil</span></td></tr><tr><td class='idx'>3</td><td class='term'><a href='https://www.suno.com.br/guias/como-fazer-valuation-empresas/' target='_blank' rel='noopener'>Valuation: o que é e como calcular o valor de uma empresa</a><span class='dom'>suno.com.br</span></td><td class='num strong'>9.621</td><td class='num'>417.987</td><td class='num soft-col'>21.443</td><td class='num soft-col'>1.523.332</td><td class='num soft-col'>86.388</td><td class='num soft-col'>3.369.451</td><td><span class='diff dificil'>Difícil</span></td></tr><tr><td class='idx'>4</td><td class='term'><a href='https://blog.itau.com.br/empresas/valuation-de-empresas' target='_blank' rel='noopener'>Valuation de empresas: como determinar o valor do seu ...</a><span class='dom'>blog.itau.com.br</span></td><td class='num strong'>3.352.375</td><td class='num'>1.202.440</td><td class='num soft-col'>6.070.570</td><td class='num soft-col'>1.315.698</td><td class='num soft-col'>6.416.031</td><td class='num soft-col'>707.785</td><td><span class='diff dificil'>Difícil</span></td></tr><tr><td class='idx'>5</td><td class='term'><a href='https://investidor10.com.br/conteudo/o-que-e-valuation-e-por-que-ele-e-importante-para-investidores-120756/' target='_blank' rel='noopener'>O que é Valuation e por que ele é importante para ...</a><span class='dom'>investidor10.com.br</span></td><td class='num strong'>556.910</td><td class='num'>3.678.072</td><td class='num soft-col'>696.668</td><td class='num soft-col'>2.455.427</td><td class='num soft-col'>397.895</td><td class='num soft-col'>1.092.165</td><td><span class='diff dificil'>Difícil</span></td></tr><tr class='jk'><td class='idx'>6</td><td class='term'><a href='https://joaokepler.com.br/' target='_blank' rel='noopener'>João Kepler | Investidor Nova Economia</a><span class='dom'>joaokepler.com.br · referência</span></td><td class='num strong'>2.000</td><td class='num'>601</td><td class='num soft-col'>0</td><td class='num soft-col'>824</td><td class='num soft-col'>0</td><td class='num soft-col'>883</td><td><span class='diff ref'>Referência</span></td></tr></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="kw">
+            <div class="kw-head">
+              <h4>valuation de empresa</h4>
+              <span class="kw-meta">1.300 buscas/mês · Meio</span>
+            </div>
+            <div class="scroll">
+              <table class="grid serp">
+                <thead>
+                  <tr>
+                    <th class="idx">#</th>
+                    <th>Resultado no Google</th>
+                    <th class="num">Marca</th>
+                    <th class="num">Seo</th>
+                    <th class="num soft-col">2025 Marca</th>
+                    <th class="num soft-col">2025 Seo</th>
+                    <th class="num soft-col">2024 Marca</th>
+                    <th class="num soft-col">2024 Seo</th>
+                    <th>Dificuldade</th>
+                  </tr>
+                </thead>
+                <tbody><tr><td class='idx'>1</td><td class='term'><a href='https://conteudos.xpi.com.br/aprenda-a-investir/relatorios/valuation/' target='_blank' rel='noopener'>Valuation: saiba calcular o valor da sua empresa!</a><span class='dom'>conteudos.xpi.com.br</span></td><td class='num strong'>464.378</td><td class='num'>739.438</td><td class='num soft-col'>655.882</td><td class='num soft-col'>659.646</td><td class='num soft-col'>682.945</td><td class='num soft-col'>520.379</td><td><span class='diff dificil'>Difícil</span></td></tr><tr><td class='idx'>2</td><td class='term'><a href='https://www.buyco.com.br/calculadora-de-valuation' target='_blank' rel='noopener'>Calculadora de Valuation - BuyCo</a><span class='dom'>buyco.com.br</span></td><td class='num strong'>388</td><td class='num'>1.090</td><td class='num soft-col'>583</td><td class='num soft-col'>1.138</td><td class='num soft-col'>667</td><td class='num soft-col'>1.542</td><td><span class='diff facil'>Fácil</span></td></tr><tr><td class='idx'>3</td><td class='term'><a href='https://www.suno.com.br/guias/como-fazer-valuation-empresas/' target='_blank' rel='noopener'>Valuation: o que é e como calcular o valor de uma empresa</a><span class='dom'>suno.com.br</span></td><td class='num strong'>9.621</td><td class='num'>417.987</td><td class='num soft-col'>21.443</td><td class='num soft-col'>1.523.332</td><td class='num soft-col'>86.388</td><td class='num soft-col'>3.369.451</td><td><span class='diff dificil'>Difícil</span></td></tr><tr><td class='idx'>4</td><td class='term'><a href='https://posdigital.pucpr.br/blog/valuation' target='_blank' rel='noopener'>Como calcular valuation de uma empresa</a><span class='dom'>posdigital.pucpr.br</span></td><td class='num strong'>193.620</td><td class='num'>262.101</td><td class='num soft-col'>188.885</td><td class='num soft-col'>266.008</td><td class='num soft-col'>160.784</td><td class='num soft-col'>191.915</td><td><span class='diff dificil'>Difícil</span></td></tr><tr><td class='idx'>5</td><td class='term'><a href='https://www.afixcode.com.br/blog/valuation-como-calcular-valor-empresa-venda/' target='_blank' rel='noopener'>Valuation: Como Calcular o Valor de Uma Empresa</a><span class='dom'>afixcode.com.br</span></td><td class='num strong'>384</td><td class='num'>10.401</td><td class='num soft-col'>400</td><td class='num soft-col'>19.256</td><td class='num soft-col'>384</td><td class='num soft-col'>7.739</td><td><span class='diff facil'>Fácil</span></td></tr><tr class='jk'><td class='idx'>6</td><td class='term'><a href='https://joaokepler.com.br/' target='_blank' rel='noopener'>João Kepler | Investidor Nova Economia</a><span class='dom'>joaokepler.com.br · referência</span></td><td class='num strong'>2.000</td><td class='num'>601</td><td class='num soft-col'>0</td><td class='num soft-col'>824</td><td class='num soft-col'>0</td><td class='num soft-col'>883</td><td><span class='diff ref'>Referência</span></td></tr></tbody>
+              </table>
+            </div>
+          </div>
+      </section>
+      <section class="panel wide">
+        <header class="panel-head">
+          <div class="panel-title">
+            <h3>Empreendedorismo &amp; Nova Economia</h3>
+            <p>Fácil 2 · Médio 1 · Difícil 9</p>
+          </div>
+          <span class="tag hard">Difícil</span>
+        </header>
+        
+          <div class="kw">
+            <div class="kw-head">
+              <h4>empreendedorismo</h4>
+              <span class="kw-meta">74.000 buscas/mês · Topo</span>
+            </div>
+            <div class="scroll">
+              <table class="grid serp">
+                <thead>
+                  <tr>
+                    <th class="idx">#</th>
+                    <th>Resultado no Google</th>
+                    <th class="num">Marca</th>
+                    <th class="num">Seo</th>
+                    <th class="num soft-col">2025 Marca</th>
+                    <th class="num soft-col">2025 Seo</th>
+                    <th class="num soft-col">2024 Marca</th>
+                    <th class="num soft-col">2024 Seo</th>
+                    <th>Dificuldade</th>
+                  </tr>
+                </thead>
+                <tbody><tr><td class='idx'>1</td><td class='term'><a href='https://sebraemg.com.br/empreendedorismo/' target='_blank' rel='noopener'>Empreendedorismo: como iniciar um negócio</a><span class='dom'>sebraemg.com.br</span></td><td class='num strong'>14.614</td><td class='num'>18.283</td><td class='num soft-col'>971</td><td class='num soft-col'>14.986</td><td class='num soft-col'>1.851</td><td class='num soft-col'>22.974</td><td><span class='diff dificil'>Difícil</span></td></tr><tr><td class='idx'>2</td><td class='term'><a href='https://www.sebrae-sc.com.br/blog/o-que-e-empreendedorismo' target='_blank' rel='noopener'>Mas afinal, o que é empreendedorismo?</a><span class='dom'>sebrae-sc.com.br</span></td><td class='num strong'>6.163</td><td class='num'>79.690</td><td class='num soft-col'>4.717</td><td class='num soft-col'>87.960</td><td class='num soft-col'>4.617</td><td class='num soft-col'>93.323</td><td><span class='diff dificil'>Difícil</span></td></tr><tr><td class='idx'>3</td><td class='term'><a href='https://pt.wikipedia.org/wiki/Empreendedorismo' target='_blank' rel='noopener'>Empreendedorismo – Wikipédia, a enciclopédia livre</a><span class='dom'>pt.wikipedia.org</span></td><td class='num strong'>—</td><td class='num'>—</td><td class='num soft-col'>—</td><td class='num soft-col'>—</td><td class='num soft-col'>—</td><td class='num soft-col'>—</td><td><span class='diff na'>—</span></td></tr><tr><td class='idx'>4</td><td class='term'><a href='https://blog.nubank.com.br/o-que-e-empreendedorismo/' target='_blank' rel='noopener'>Empreendedorismo: tipos, características e como começar</a><span class='dom'>blog.nubank.com.br</span></td><td class='num strong'>2.937.621</td><td class='num'>863.626</td><td class='num soft-col'>4.470.099</td><td class='num soft-col'>1.392.065</td><td class='num soft-col'>3.447.189</td><td class='num soft-col'>1.235.923</td><td><span class='diff dificil'>Difícil</span></td></tr><tr><td class='idx'>5</td><td class='term'><a href='https://www.utfpr.edu.br/blog/empreendedorismo-o-que-e-preciso-saber-para-comecar' target='_blank' rel='noopener'>Empreendedorismo: o que é preciso saber para começar?</a><span class='dom'>utfpr.edu.br</span></td><td class='num strong'>256.588</td><td class='num'>67.224</td><td class='num soft-col'>171.441</td><td class='num soft-col'>167.218</td><td class='num soft-col'>243.765</td><td class='num soft-col'>208.765</td><td><span class='diff dificil'>Difícil</span></td></tr><tr class='jk'><td class='idx'>6</td><td class='term'><a href='https://joaokepler.com.br/' target='_blank' rel='noopener'>João Kepler | Investidor Nova Economia</a><span class='dom'>joaokepler.com.br · referência</span></td><td class='num strong'>2.000</td><td class='num'>601</td><td class='num soft-col'>0</td><td class='num soft-col'>824</td><td class='num soft-col'>0</td><td class='num soft-col'>883</td><td><span class='diff ref'>Referência</span></td></tr></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="kw">
+            <div class="kw-head">
+              <h4>o que é startup</h4>
+              <span class="kw-meta">8.100 buscas/mês · Topo</span>
+            </div>
+            <div class="scroll">
+              <table class="grid serp">
+                <thead>
+                  <tr>
+                    <th class="idx">#</th>
+                    <th>Resultado no Google</th>
+                    <th class="num">Marca</th>
+                    <th class="num">Seo</th>
+                    <th class="num soft-col">2025 Marca</th>
+                    <th class="num soft-col">2025 Seo</th>
+                    <th class="num soft-col">2024 Marca</th>
+                    <th class="num soft-col">2024 Seo</th>
+                    <th>Dificuldade</th>
+                  </tr>
+                </thead>
+                <tbody><tr><td class='idx'>1</td><td class='term'><a href='https://sebraemg.com.br/start-ups/' target='_blank' rel='noopener'>O que é e como montar uma startup</a><span class='dom'>sebraemg.com.br</span></td><td class='num strong'>14.614</td><td class='num'>18.283</td><td class='num soft-col'>971</td><td class='num soft-col'>14.986</td><td class='num soft-col'>1.851</td><td class='num soft-col'>22.974</td><td><span class='diff dificil'>Difícil</span></td></tr><tr><td class='idx'>2</td><td class='term'><a href='https://conteudos.xpi.com.br/aprenda-a-investir/relatorios/o-que-e-startup/' target='_blank' rel='noopener'>O que é uma startup? Definição, objetivos e como montar a sua!</a><span class='dom'>conteudos.xpi.com.br</span></td><td class='num strong'>464.378</td><td class='num'>739.438</td><td class='num soft-col'>655.882</td><td class='num soft-col'>659.646</td><td class='num soft-col'>682.945</td><td class='num soft-col'>520.379</td><td><span class='diff dificil'>Difícil</span></td></tr><tr><td class='idx'>3</td><td class='term'><a href='https://www.c6bank.com.br/blog/o-que-e-startup' target='_blank' rel='noopener'>O Que É Startup? Entenda o Conceito e Como Criar a Sua</a><span class='dom'>c6bank.com.br</span></td><td class='num strong'>412.841</td><td class='num'>646.657</td><td class='num soft-col'>552.510</td><td class='num soft-col'>182.421</td><td class='num soft-col'>776.741</td><td class='num soft-col'>80.647</td><td><span class='diff dificil'>Difícil</span></td></tr><tr><td class='idx'>4</td><td class='term'><a href='https://www.distrito.me/blog/o-que-e-uma-startup' target='_blank' rel='noopener'>O que é uma startup e como funciona?</a><span class='dom'>distrito.me</span></td><td class='num strong'>942</td><td class='num'>58.844</td><td class='num soft-col'>10.825</td><td class='num soft-col'>51.291</td><td class='num soft-col'>13.301</td><td class='num soft-col'>16.479</td><td><span class='diff facil'>Fácil</span></td></tr><tr><td class='idx'>5</td><td class='term'><a href='https://pt.wikipedia.org/wiki/Startup' target='_blank' rel='noopener'>Startup – Wikipédia, a enciclopédia livre</a><span class='dom'>pt.wikipedia.org</span></td><td class='num strong'>—</td><td class='num'>—</td><td class='num soft-col'>—</td><td class='num soft-col'>—</td><td class='num soft-col'>—</td><td class='num soft-col'>—</td><td><span class='diff na'>—</span></td></tr><tr class='jk'><td class='idx'>6</td><td class='term'><a href='https://joaokepler.com.br/' target='_blank' rel='noopener'>João Kepler | Investidor Nova Economia</a><span class='dom'>joaokepler.com.br · referência</span></td><td class='num strong'>2.000</td><td class='num'>601</td><td class='num soft-col'>0</td><td class='num soft-col'>824</td><td class='num soft-col'>0</td><td class='num soft-col'>883</td><td><span class='diff ref'>Referência</span></td></tr></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="kw">
+            <div class="kw-head">
+              <h4>o que é pivô</h4>
+              <span class="kw-meta">1.600 buscas/mês · Meio</span>
+            </div>
+            <div class="scroll">
+              <table class="grid serp">
+                <thead>
+                  <tr>
+                    <th class="idx">#</th>
+                    <th>Resultado no Google</th>
+                    <th class="num">Marca</th>
+                    <th class="num">Seo</th>
+                    <th class="num soft-col">2025 Marca</th>
+                    <th class="num soft-col">2025 Seo</th>
+                    <th class="num soft-col">2024 Marca</th>
+                    <th class="num soft-col">2024 Seo</th>
+                    <th>Dificuldade</th>
+                  </tr>
+                </thead>
+                <tbody><tr><td class='idx'>1</td><td class='term'><a href='https://consorciomagalu.com.br/2024/04/03/pivo-de-irrigacao/' target='_blank' rel='noopener'>Pivô de irrigação: o que é, quais os tipos e vantagens</a><span class='dom'>consorciomagalu.com.br</span></td><td class='num strong'>48.611</td><td class='num'>29.383</td><td class='num soft-col'>42.157</td><td class='num soft-col'>54.053</td><td class='num soft-col'>43.931</td><td class='num soft-col'>22.486</td><td><span class='diff dificil'>Difícil</span></td></tr><tr><td class='idx'>2</td><td class='term'><a href='https://pt.wikipedia.org/wiki/Piv%C3%B4' target='_blank' rel='noopener'>Pivô – Wikipédia, a enciclopédia livre</a><span class='dom'>pt.wikipedia.org</span></td><td class='num strong'>—</td><td class='num'>—</td><td class='num soft-col'>—</td><td class='num soft-col'>—</td><td class='num soft-col'>—</td><td class='num soft-col'>—</td><td><span class='diff na'>—</span></td></tr><tr><td class='idx'>3</td><td class='term'><a href='https://anelibandejas.com.br/pivo-automotivo-o-que-e-e-quais-pecas-precisam-ser-checadas/' target='_blank' rel='noopener'>O QUE É E QUAIS PEÇAS PRECISAM SER CHECADAS</a><span class='dom'>anelibandejas.com.br</span></td><td class='num strong'>140</td><td class='num'>205</td><td class='num soft-col'>216</td><td class='num soft-col'>135</td><td class='num soft-col'>312</td><td class='num soft-col'>2</td><td><span class='diff facil'>Fácil</span></td></tr><tr><td class='idx'>4</td><td class='term'><a href='https://www.redbullbragantino.com/br-pt/blog/o-que-e-um-pivo-no-futebol-e-qual-sua-funcao' target='_blank' rel='noopener'>O que é um pivô no futebol e qual sua função?</a><span class='dom'>redbullbragantino.com</span></td><td class='num strong'>2.416</td><td class='num'>417.142</td><td class='num soft-col'>0</td><td class='num soft-col'>0</td><td class='num soft-col'>0</td><td class='num soft-col'>0</td><td><span class='diff medio'>Médio</span></td></tr><tr><td class='idx'>5</td><td class='term'><a href='https://www.fullpneus.com.br/pivo-da-suspensao-o-que-voce-precisa-saber?srsltid=AfmBOooHtohp6gajxySs1BMvV09JK1pOHIuQtELgn4MQBnwX9nivu5FT' target='_blank' rel='noopener'>Pivô da suspensão: o que você precisa saber?</a><span class='dom'>fullpneus.com.br</span></td><td class='num strong'>12.843</td><td class='num'>25.761</td><td class='num soft-col'>41.168</td><td class='num soft-col'>65.908</td><td class='num soft-col'>14.544</td><td class='num soft-col'>25.856</td><td><span class='diff dificil'>Difícil</span></td></tr><tr class='jk'><td class='idx'>6</td><td class='term'><a href='https://joaokepler.com.br/' target='_blank' rel='noopener'>João Kepler | Investidor Nova Economia</a><span class='dom'>joaokepler.com.br · referência</span></td><td class='num strong'>2.000</td><td class='num'>601</td><td class='num soft-col'>0</td><td class='num soft-col'>824</td><td class='num soft-col'>0</td><td class='num soft-col'>883</td><td><span class='diff ref'>Referência</span></td></tr></tbody>
+              </table>
+            </div>
+          </div>
+      </section>
+      <section class="panel wide">
+        <header class="panel-head">
+          <div class="panel-title">
+            <h3>Educação &amp; Conteúdo JK</h3>
+            <p>Fácil 6 · Médio 0 · Difícil 6</p>
+          </div>
+          <span class="tag hard">Difícil</span>
+        </header>
+        
+          <div class="kw">
+            <div class="kw-head">
+              <h4>joão kepler</h4>
+              <span class="kw-meta">4.400 buscas/mês · Fundo</span>
+            </div>
+            <div class="scroll">
+              <table class="grid serp">
+                <thead>
+                  <tr>
+                    <th class="idx">#</th>
+                    <th>Resultado no Google</th>
+                    <th class="num">Marca</th>
+                    <th class="num">Seo</th>
+                    <th class="num soft-col">2025 Marca</th>
+                    <th class="num soft-col">2025 Seo</th>
+                    <th class="num soft-col">2024 Marca</th>
+                    <th class="num soft-col">2024 Seo</th>
+                    <th>Dificuldade</th>
+                  </tr>
+                </thead>
+                <tbody><tr><td class='idx'>1</td><td class='term'><a href='https://www.instagram.com/joaokepler/?hl=pt-br' target='_blank' rel='noopener'>𝙅𝙤ã𝙤 𝙆𝙚𝙥𝙡𝙚𝙧 (@joaokepler) · São Paulo, SP</a><span class='dom'>instagram.com</span></td><td class='num strong'>—</td><td class='num'>—</td><td class='num soft-col'>—</td><td class='num soft-col'>—</td><td class='num soft-col'>—</td><td class='num soft-col'>—</td><td><span class='diff na'>—</span></td></tr><tr class=jk><td class='idx'>2</td><td class='term'><a href='https://joaokepler.com.br/' target='_blank' rel='noopener'>João Kepler | Investidor Nova Economia</a><span class='dom'>joaokepler.com.br</span></td><td class='num strong'>2.000</td><td class='num'>601</td><td class='num soft-col'>0</td><td class='num soft-col'>824</td><td class='num soft-col'>0</td><td class='num soft-col'>883</td><td><span class='diff ref'>Referência</span></td></tr><tr><td class='idx'>3</td><td class='term'><a href='https://br.linkedin.com/in/joaokepler' target='_blank' rel='noopener'>João Kepler ® - LinkedIn Top Voice l CEO @EquityGroup e ...</a><span class='dom'>br.linkedin.com</span></td><td class='num strong'>—</td><td class='num'>—</td><td class='num soft-col'>—</td><td class='num soft-col'>—</td><td class='num soft-col'>—</td><td class='num soft-col'>—</td><td><span class='diff na'>—</span></td></tr><tr><td class='idx'>4</td><td class='term'><a href='https://online.pucrs.br/professor/joao-kepler-braga' target='_blank' rel='noopener'>Prof(a) João Kepler Braga</a><span class='dom'>online.pucrs.br</span></td><td class='num strong'>382.699</td><td class='num'>665.397</td><td class='num soft-col'>407.156</td><td class='num soft-col'>945.821</td><td class='num soft-col'>314.509</td><td class='num soft-col'>715.499</td><td><span class='diff dificil'>Difícil</span></td></tr><tr><td class='idx'>5</td><td class='term'><a href='https://www.amazon.com.br/stores/author/B07HH8PKN5/about' target='_blank' rel='noopener'>João Kepler: livros, biografia, última atualização</a><span class='dom'>amazon.com.br</span></td><td class='num strong'>10.034.065</td><td class='num'>39.616.636</td><td class='num soft-col'>17.243.228</td><td class='num soft-col'>73.465.191</td><td class='num soft-col'>14.323.566</td><td class='num soft-col'>47.909.248</td><td><span class='diff dificil'>Difícil</span></td></tr><tr class='jk'><td class='idx'>6</td><td class='term'><a href='https://joaokepler.com.br/' target='_blank' rel='noopener'>João Kepler | Investidor Nova Economia</a><span class='dom'>joaokepler.com.br · referência</span></td><td class='num strong'>2.000</td><td class='num'>601</td><td class='num soft-col'>0</td><td class='num soft-col'>824</td><td class='num soft-col'>0</td><td class='num soft-col'>883</td><td><span class='diff ref'>Referência</span></td></tr></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="kw">
+            <div class="kw-head">
+              <h4>livros de negócios</h4>
+              <span class="kw-meta">480 buscas/mês · Topo</span>
+            </div>
+            <div class="scroll">
+              <table class="grid serp">
+                <thead>
+                  <tr>
+                    <th class="idx">#</th>
+                    <th>Resultado no Google</th>
+                    <th class="num">Marca</th>
+                    <th class="num">Seo</th>
+                    <th class="num soft-col">2025 Marca</th>
+                    <th class="num soft-col">2025 Seo</th>
+                    <th class="num soft-col">2024 Marca</th>
+                    <th class="num soft-col">2024 Seo</th>
+                    <th>Dificuldade</th>
+                  </tr>
+                </thead>
+                <tbody><tr><td class='idx'>1</td><td class='term'><a href='https://www.amazon.com.br/gp/bestsellers/books/7873900011' target='_blank' rel='noopener'>Negócios - os mais vendidos na Amazon.com.br</a><span class='dom'>amazon.com.br</span></td><td class='num strong'>10.034.065</td><td class='num'>39.616.636</td><td class='num soft-col'>17.243.228</td><td class='num soft-col'>73.465.191</td><td class='num soft-col'>14.323.566</td><td class='num soft-col'>47.909.248</td><td><span class='diff dificil'>Difícil</span></td></tr><tr><td class='idx'>2</td><td class='term'><a href='https://www.idv.org.br/noticia/18-livros-de-negocios-para-ler-em-2024-segundo-os-maiores-empreendedores-do-brasil/' target='_blank' rel='noopener'>18 livros de negócios para ler em 2024, segundo os maiores ...</a><span class='dom'>idv.org.br</span></td><td class='num strong'>0</td><td class='num'>896</td><td class='num soft-col'>0</td><td class='num soft-col'>2.491</td><td class='num soft-col'>3.101</td><td class='num soft-col'>1.093</td><td><span class='diff facil'>Fácil</span></td></tr><tr><td class='idx'>3</td><td class='term'><a href='https://exame.com/pme/dia-mundial-do-livro-14-livros-recomendados-por-empreendedores-de-sucesso/' target='_blank' rel='noopener'>14 livros recomendados por empreendedores de sucesso</a><span class='dom'>exame.com</span></td><td class='num strong'>111.482</td><td class='num'>4.502.823</td><td class='num soft-col'>151.023</td><td class='num soft-col'>22.345.076</td><td class='num soft-col'>143.907</td><td class='num soft-col'>20.307.237</td><td><span class='diff dificil'>Difícil</span></td></tr><tr><td class='idx'>4</td><td class='term'><a href='https://www.scalabl.com/livros/' target='_blank' rel='noopener'>Quase 200 livros de negócios, empreendedorismo e ...</a><span class='dom'>scalabl.com</span></td><td class='num strong'>0</td><td class='num'>829</td><td class='num soft-col'>0</td><td class='num soft-col'>110</td><td class='num soft-col'>0</td><td class='num soft-col'>17</td><td><span class='diff facil'>Fácil</span></td></tr><tr><td class='idx'>5</td><td class='term'><a href='https://www.editoragente.com.br/negocios?srsltid=AfmBOoo_DnlNX9T-qBlQsMk0kUZBUbjx6HGG8z-2Zz4ICLDeQ9F40DLq' target='_blank' rel='noopener'>Livros de Negócios</a><span class='dom'>editoragente.com.br</span></td><td class='num strong'>1.352</td><td class='num'>5.779</td><td class='num soft-col'>1.296</td><td class='num soft-col'>12.340</td><td class='num soft-col'>1.821</td><td class='num soft-col'>13.633</td><td><span class='diff facil'>Fácil</span></td></tr><tr class='jk'><td class='idx'>6</td><td class='term'><a href='https://joaokepler.com.br/' target='_blank' rel='noopener'>João Kepler | Investidor Nova Economia</a><span class='dom'>joaokepler.com.br · referência</span></td><td class='num strong'>2.000</td><td class='num'>601</td><td class='num soft-col'>0</td><td class='num soft-col'>824</td><td class='num soft-col'>0</td><td class='num soft-col'>883</td><td><span class='diff ref'>Referência</span></td></tr></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="kw">
+            <div class="kw-head">
+              <h4>palestra empreendedorismo</h4>
+              <span class="kw-meta">390 buscas/mês · Meio</span>
+            </div>
+            <div class="scroll">
+              <table class="grid serp">
+                <thead>
+                  <tr>
+                    <th class="idx">#</th>
+                    <th>Resultado no Google</th>
+                    <th class="num">Marca</th>
+                    <th class="num">Seo</th>
+                    <th class="num soft-col">2025 Marca</th>
+                    <th class="num soft-col">2025 Seo</th>
+                    <th class="num soft-col">2024 Marca</th>
+                    <th class="num soft-col">2024 Seo</th>
+                    <th>Dificuldade</th>
+                  </tr>
+                </thead>
+                <tbody><tr><td class='idx'>1</td><td class='term'><a href='https://loja.sebrae.com.br/palestra-empreendedorismo-em-dois-tempos-1-372000027100' target='_blank' rel='noopener'>Palestra empreendedorismo em dois tempos</a><span class='dom'>loja.sebrae.com.br</span></td><td class='num strong'>673.734</td><td class='num'>412.912</td><td class='num soft-col'>931.916</td><td class='num soft-col'>2.641.652</td><td class='num soft-col'>855.910</td><td class='num soft-col'>2.547.418</td><td><span class='diff dificil'>Difícil</span></td></tr><tr><td class='idx'>2</td><td class='term'><a href='https://www.sympla.com.br/eventos/congresso-palestra' target='_blank' rel='noopener'>Congressos e Palestras para sua qualificação</a><span class='dom'>sympla.com.br</span></td><td class='num strong'>691.343</td><td class='num'>1.182.489</td><td class='num soft-col'>943.555</td><td class='num soft-col'>1.636.601</td><td class='num soft-col'>719.604</td><td class='num soft-col'>1.299.308</td><td><span class='diff dificil'>Difícil</span></td></tr><tr><td class='idx'>3</td><td class='term'><a href='https://www.dmtpalestras.com.br/tema/empreendedorismo/' target='_blank' rel='noopener'>Os melhores Palestrantes sobre Empreendedorismo</a><span class='dom'>dmtpalestras.com.br</span></td><td class='num strong'>588</td><td class='num'>16.943</td><td class='num soft-col'>492</td><td class='num soft-col'>20.482</td><td class='num soft-col'>492</td><td class='num soft-col'>17.671</td><td><span class='diff facil'>Fácil</span></td></tr><tr><td class='idx'>4</td><td class='term'><a href='https://palestraseconteudo.com.br/palestras-de-empreendedorismo/' target='_blank' rel='noopener'>Palestras de Empreendedorismo</a><span class='dom'>palestraseconteudo.com.br</span></td><td class='num strong'>0</td><td class='num'>40</td><td class='num soft-col'>0</td><td class='num soft-col'>764</td><td class='num soft-col'>0</td><td class='num soft-col'>190</td><td><span class='diff facil'>Fácil</span></td></tr><tr><td class='idx'>5</td><td class='term'><a href='https://expoempreendedor.com.br/' target='_blank' rel='noopener'>Expo Empreendedor | Feira de Negócios, Palestras e ...</a><span class='dom'>expoempreendedor.com.br</span></td><td class='num strong'>1.034</td><td class='num'>1.929</td><td class='num soft-col'>1.201</td><td class='num soft-col'>3.170</td><td class='num soft-col'>1.439</td><td class='num soft-col'>1.377</td><td><span class='diff facil'>Fácil</span></td></tr><tr class='jk'><td class='idx'>6</td><td class='term'><a href='https://joaokepler.com.br/' target='_blank' rel='noopener'>João Kepler | Investidor Nova Economia</a><span class='dom'>joaokepler.com.br · referência</span></td><td class='num strong'>2.000</td><td class='num'>601</td><td class='num soft-col'>0</td><td class='num soft-col'>824</td><td class='num soft-col'>0</td><td class='num soft-col'>883</td><td><span class='diff ref'>Referência</span></td></tr></tbody>
+              </table>
+            </div>
+          </div>
+      </section></div>
+    </div>
+
+    <footer class="foot">
+      <span>Volumes: Google Ads via DataForSEO · região Brasil. Marca/Seo: Semrush (base br).</span>
+      <span>Referência de marca João Kepler: 2.000</span>
+    </footer>
+  </div>
+<script>
+document.querySelectorAll('.tab').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    var id = btn.dataset.view;
+    document.querySelectorAll('.tab').forEach(function (b) { b.classList.toggle('active', b === btn); });
+    document.querySelectorAll('.panel-view').forEach(function (v) {
+      v.classList.toggle('active', v.id === 'view-' + id);
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+
+function sortPanel(panel, dir) {
+  var tbody = panel.querySelector('tbody');
+  if (!tbody) return;
+  var rows = Array.prototype.slice.call(tbody.querySelectorAll('tr'));
+  rows.sort(function (a, b) {
+    var va = Number(a.dataset.volume || 0);
+    var vb = Number(b.dataset.volume || 0);
+    return dir === 'asc' ? va - vb : vb - va;
+  });
+  rows.forEach(function (row, i) {
+    var idx = row.querySelector('.idx');
+    if (idx) idx.textContent = String(i + 1);
+    tbody.appendChild(row);
+  });
+  panel.querySelectorAll('.chip').forEach(function (c) {
+    c.classList.toggle('active', c.dataset.sort === dir);
+  });
+}
+
+document.querySelectorAll('.chip[data-sort]').forEach(function (chip) {
+  chip.addEventListener('click', function () {
+    sortPanel(chip.closest('.panel'), chip.dataset.sort);
+  });
+});
+
+document.querySelectorAll('th.sortable').forEach(function (th) {
+  th.addEventListener('click', function () {
+    var panel = th.closest('.panel');
+    var active = panel.querySelector('.chip.active');
+    var next = active && active.dataset.sort === 'desc' ? 'asc' : 'desc';
+    sortPanel(panel, next);
+  });
+});
+</script>
+</body>
+</html>
