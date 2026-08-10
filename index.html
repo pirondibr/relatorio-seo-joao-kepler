@@ -473,6 +473,138 @@ th.sortable:hover { color: var(--accent); }
 .diff.dificil { background: var(--dificil-bg); color: var(--dificil); }
 .diff.ref, .diff.na { background: var(--ref-bg); color: var(--ref); }
 
+/* ---------- programação ---------- */
+.prog-kpis .ok-kpi { background: linear-gradient(160deg, #14544f, #0d3b3a); }
+.prog-kpis .bad-kpi { background: linear-gradient(160deg, #8f3a36, #6d2824); }
+.crit-list { display: grid; gap: 14px; }
+.crit {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.crit.ok { border-left: 4px solid var(--facil); }
+.crit.bad { border-left: 4px solid var(--dificil); }
+.crit-head {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 14px;
+  align-items: start;
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--line-soft);
+}
+.crit-num {
+  font-family: Georgia, serif;
+  font-size: 1.35rem;
+  color: var(--gold);
+  line-height: 1;
+  padding-top: 2px;
+}
+.crit-head h3 { margin: 0; font-size: 1.05rem; color: var(--accent); }
+.crit-head p { margin: 4px 0 0; font-size: .84rem; color: var(--ink-soft); }
+.crit-badge {
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.crit-badge.ok { background: var(--facil-bg); color: var(--facil); }
+.crit-badge.bad { background: var(--dificil-bg); color: var(--dificil); }
+.crit-body { padding: 16px 20px 20px; }
+.crit-note { margin: 0 0 12px; font-size: .84rem; color: var(--ink-soft); }
+.crit-note code, .meta-desc code, .method code {
+  background: var(--line-soft);
+  padding: 1px 6px;
+  border-radius: 5px;
+  font-size: .8em;
+}
+.meta-proof {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.meta-card {
+  background: #faf8f3;
+  border: 1px solid var(--line-soft);
+  border-radius: 12px;
+  padding: 14px 16px;
+  min-width: 0;
+}
+.meta-card.wide { grid-column: 1 / -1; }
+.meta-card.warn-card {
+  background: #fbf3f2;
+  border-color: #f0cfcb;
+}
+.meta-label {
+  display: block;
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 8px;
+}
+.meta-card code {
+  display: block;
+  font-size: .82rem;
+  color: var(--accent);
+  word-break: break-word;
+  line-height: 1.45;
+}
+.meta-title-preview {
+  display: block;
+  font-size: 1.05rem;
+  color: #1a0dab;
+  line-height: 1.3;
+}
+.meta-desc {
+  margin: 0;
+  font-size: .88rem;
+  color: var(--ink);
+  line-height: 1.45;
+}
+.source-block {
+  margin: 12px 0 0;
+  padding: 12px 14px;
+  background: #141f1e;
+  color: #d7e6e2;
+  border-radius: 10px;
+  font-size: .75rem;
+  line-height: 1.5;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.url-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.url-chip {
+  display: inline-block;
+  padding: 7px 12px;
+  border-radius: 8px;
+  background: #f3f7f6;
+  border: 1px solid #d5e4e1;
+  color: var(--accent);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: .8rem;
+}
+.blog-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.medium-link {
+  display: inline-block;
+  color: var(--dificil);
+  font-weight: 700;
+  text-decoration: none;
+  word-break: break-all;
+}
+.medium-link:hover { text-decoration: underline; }
+
 /* ---------- serp blocks ---------- */
 .panel.wide { grid-column: 1 / -1; }
 .kw { border-top: 1px solid var(--line-soft); }
@@ -515,8 +647,10 @@ footer.foot {
 @media (max-width: 680px) {
   .wrap { padding: 26px 16px 60px; }
   .masthead h1 { font-size: 1.8rem; }
-  .kpi-grid, .cat-grid, .cat-grid.wide-grid, .conc-lists { grid-template-columns: 1fr; }
+  .kpi-grid, .cat-grid, .cat-grid.wide-grid, .conc-lists, .meta-proof, .blog-grid { grid-template-columns: 1fr; }
   .panel.funnel-panel .funnel { grid-template-columns: 1fr; gap: 16px; }
+  .crit-head { grid-template-columns: auto 1fr; }
+  .crit-badge { grid-column: 2; justify-self: start; }
   .tabs { margin: 0 -16px 20px; padding: 12px 16px; }
   .soft-col { display: none; }
 }
@@ -536,7 +670,7 @@ footer.foot {
       <div>
         <span class="eyebrow">Pesquisa de SEO · Brasil</span>
         <h1>João Kepler</h1>
-        <p class="lede">Mapeamento de demanda de busca, potencial por categoria e análise de concorrência orgânica para <a href="https://joaokepler.com.br/" target="_blank" rel="noopener">joaokepler.com.br</a>.</p>
+        <p class="lede">Mapeamento de demanda de busca, potencial por categoria, concorrência orgânica e checklist técnico de programação para <a href="https://joaokepler.com.br/" target="_blank" rel="noopener">joaokepler.com.br</a>.</p>
       </div>
       <div class="meta-chips">
         <span>137 palavras</span>
@@ -549,6 +683,7 @@ footer.foot {
     <nav class="tabs">
       <button class="tab active" type="button" data-view="potencial">Potencial<span class="n">137</span></button>
       <button class="tab" type="button" data-view="concorrencia">Concorrência<span class="n">21</span></button>
+      <button class="tab" type="button" data-view="programacao">Programação<span class="n">5</span></button>
     </nav>
 
     <div id="view-potencial" class="panel-view active">
@@ -1591,9 +1726,152 @@ footer.foot {
           </div>
       </section></div>
     </div>
+    <div id="view-programacao" class="panel-view">
+    <section class="callout">
+      <span class="callout-badge">Conclusão</span>
+      <h2>Os critérios básicos de programação estão ok — com uma ressalva</h2>
+      <p>No site <a href="https://joaokepler.com.br/in" target="_blank" rel="noopener">joaokepler.com.br/in</a>, código legível pelo Google, meta title, meta description e URLs amigáveis passam. O único critério negativo é o <strong>Blog</strong>: a área de Conteúdos não hospeda artigos no domínio — ela direciona o leitor para o <a href="https://joaokepler.medium.com/" target="_blank" rel="noopener">Medium</a>.</p>
+    </section>
+
+    <div class="kpi-grid prog-kpis">
+      <div class="kpi ok-kpi">
+        <span class="kpi-label">Critérios ok</span>
+        <strong class="kpi-value">4</strong>
+        <span class="kpi-hint">Código · Title · Description · URL</span>
+      </div>
+      <div class="kpi bad-kpi">
+        <span class="kpi-label">Critério negativo</span>
+        <strong class="kpi-value">1</strong>
+        <span class="kpi-hint">Blog próprio inexistente</span>
+      </div>
+      <div class="kpi">
+        <span class="kpi-label">Páginas no Google</span>
+        <strong class="kpi-value">10</strong>
+        <span class="kpi-hint">via site:joaokepler.com.br</span>
+      </div>
+      <div class="kpi">
+        <span class="kpi-label">Robots</span>
+        <strong class="kpi-value" style="font-size:1.35rem">index</strong>
+        <span class="kpi-hint">index, follow</span>
+      </div>
+    </div>
+
+    <div class="crit-list">
+      <article class="crit ok">
+        <header class="crit-head">
+          <span class="crit-num">01</span>
+          <div>
+            <h3>Código legível pelo Google</h3>
+            <p>O HTML é indexável e o Google já carrega páginas do domínio.</p>
+          </div>
+          <span class="crit-badge ok">Ok</span>
+        </header>
+        <div class="crit-body">
+          <p class="crit-note">Comprovação com a busca <code>site:joaokepler.com.br</code> — páginas retornadas pelo Google:</p>
+          <div class="scroll">
+            <table class="grid">
+              <thead>
+                <tr><th class="idx">#</th><th>Página indexada</th><th>Tipo</th></tr>
+              </thead>
+              <tbody>
+                <tr><td class='idx'>1</td><td class='term'><a href='https://joaokepler.com.br/' target='_blank' rel='noopener'>João Kepler | Investidor Nova Economia</a><span class='dom'>https://joaokepler.com.br/</span></td><td>Home</td></tr><tr><td class='idx'>2</td><td class='term'><a href='https://joaokepler.com.br/livros/' target='_blank' rel='noopener'>Livros de Joao Kepler | Negocios, Vendas, Equity e Familia</a><span class='dom'>https://joaokepler.com.br/livros/</span></td><td>Biblioteca / livros</td></tr><tr><td class='idx'>3</td><td class='term'><a href='https://joaokepler.com.br/ebook' target='_blank' rel='noopener'>Baixe gratuitamente - João Kepler | Investidor Nova Economia</a><span class='dom'>https://joaokepler.com.br/ebook</span></td><td>Lead magnet / ebook</td></tr><tr><td class='idx'>4</td><td class='term'><a href='https://joaokepler.com.br/coracao/' target='_blank' rel='noopener'>O Coração Ensinável no Mundo dos Negócios - João Kepler</a><span class='dom'>https://joaokepler.com.br/coracao/</span></td><td>Landing de livro</td></tr><tr><td class='idx'>5</td><td class='term'><a href='https://ia.joaokepler.com.br/' target='_blank' rel='noopener'>KeplerAI - Seu Orientador Digital no WhatsApp</a><span class='dom'>https://ia.joaokepler.com.br/</span></td><td>Produto / IA</td></tr><tr><td class='idx'>6</td><td class='term'><a href='https://joaokepler.com.br/contents' target='_blank' rel='noopener'>Conteúdos - João Kepler | Investidor Nova Economia</a><span class='dom'>https://joaokepler.com.br/contents</span></td><td>Área de conteúdos</td></tr><tr><td class='idx'>7</td><td class='term'><a href='https://joaokepler.com.br/board' target='_blank' rel='noopener'>Investidor Nova Economia - João Kepler</a><span class='dom'>https://joaokepler.com.br/board</span></td><td>Board</td></tr><tr><td class='idx'>8</td><td class='term'><a href='https://joaokepler.com.br/ferramentas' target='_blank' rel='noopener'>Universo JK - João Kepler | Investidor Nova Economia</a><span class='dom'>https://joaokepler.com.br/ferramentas</span></td><td>Ferramentas</td></tr><tr><td class='idx'>9</td><td class='term'><a href='https://joaokepler.com.br/palestras' target='_blank' rel='noopener'>Palestras - João Kepler | Investidor Nova Economia</a><span class='dom'>https://joaokepler.com.br/palestras</span></td><td>Palestras</td></tr><tr><td class='idx'>10</td><td class='term'><a href='https://joaokepler.com.br/investments' target='_blank' rel='noopener'>Investimentos - João Kepler | Investidor Nova Economia</a><span class='dom'>https://joaokepler.com.br/investments</span></td><td>Investimentos</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </article>
+
+      <article class="crit ok">
+        <header class="crit-head">
+          <span class="crit-num">02</span>
+          <div>
+            <h3>Meta title</h3>
+            <p>Presente no código-fonte e refletido no título da página / SERP.</p>
+          </div>
+          <span class="crit-badge ok">Ok</span>
+        </header>
+        <div class="crit-body">
+          <div class="meta-proof">
+            <div class="meta-card">
+              <span class="meta-label">No código-fonte</span>
+              <code>&lt;title&gt;João Kepler | Investidor Nova Economia&lt;/title&gt;</code>
+            </div>
+            <div class="meta-card">
+              <span class="meta-label">No site / Google</span>
+              <strong class="meta-title-preview">João Kepler | Investidor Nova Economia</strong>
+              <span class="dom">https://joaokepler.com.br/in</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="crit ok">
+        <header class="crit-head">
+          <span class="crit-num">03</span>
+          <div>
+            <h3>Meta description</h3>
+            <p>Tag <code>meta name="description"</code> presente e preenchida.</p>
+          </div>
+          <span class="crit-badge ok">Ok</span>
+        </header>
+        <div class="crit-body">
+          <div class="meta-proof">
+            <div class="meta-card wide">
+              <span class="meta-label">Descrição encontrada</span>
+              <p class="meta-desc">Conheça João Kepler, investidor da Nova Economia. Especialista em Equity, inovação e crescimento empresarial. Faça o diagnóstico da sua empresa e descubra seu roadmap para o Exit.</p>
+              <pre class="source-block">&lt;title&gt;João Kepler | Investidor Nova Economia&lt;/title&gt;
+&lt;meta name=&quot;description&quot; content=&quot;Conheça João Kepler, investidor da Nova Economia. Especialista em Equity, inovação e crescimento empresarial. Faça o diagnóstico da sua empresa e descubra seu roadmap para o Exit.&quot;&gt;
+&lt;meta name=&quot;robots&quot; content=&quot;index, follow&quot;&gt;</pre>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="crit ok">
+        <header class="crit-head">
+          <span class="crit-num">04</span>
+          <div>
+            <h3>URL amigável</h3>
+            <p>Paths curtos, legíveis e sem parâmetros dinâmicos desnecessários.</p>
+          </div>
+          <span class="crit-badge ok">Ok</span>
+        </header>
+        <div class="crit-body">
+          <p class="crit-note">Exemplos de URLs do domínio:</p>
+          <div class="url-chips"><span class='url-chip'>/in</span><span class='url-chip'>/livros/</span><span class='url-chip'>/contents</span><span class='url-chip'>/palestras</span><span class='url-chip'>/board</span><span class='url-chip'>/ebook</span><span class='url-chip'>/investments</span><span class='url-chip'>/ferramentas</span><span class='url-chip'>/coracao/</span></div>
+        </div>
+      </article>
+
+      <article class="crit bad">
+        <header class="crit-head">
+          <span class="crit-num">05</span>
+          <div>
+            <h3>Blog</h3>
+            <p>Não há blog próprio no domínio — o conteúdo editorial vive no Medium.</p>
+          </div>
+          <span class="crit-badge bad">Negativo</span>
+        </header>
+        <div class="crit-body">
+          <div class="blog-grid">
+            <div class="meta-card">
+              <span class="meta-label">No menu do site</span>
+              <strong>Conteúdos</strong>
+              <span class="dom">href = /contents</span>
+              <p class="meta-desc" style="margin-top:10px">No menu do site, Conteúdos aponta para /contents. Dentro dessa área, os artigos usam “Ler no Medium” e o feed aponta para joaokepler.medium.com — não há blog próprio no domínio.</p>
+            </div>
+            <div class="meta-card warn-card">
+              <span class="meta-label">Destino real do conteúdo</span>
+              <a class="medium-link" href="https://joaokepler.medium.com/" target="_blank" rel="noopener">https://joaokepler.medium.com/</a>
+              <p class="meta-desc" style="margin-top:10px">Na página <a href="https://joaokepler.com.br/contents" target="_blank" rel="noopener">/contents</a>, os artigos abrem com “Ler no Medium” e o feed aponta para <code>joaokepler.medium.com</code>. Ou seja: a autoridade e o texto ficam fora do site.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+    </div>
 
     <footer class="foot">
-      <span>Volumes: Google Ads via DataForSEO · região Brasil. Marca/Seo: Semrush (base br).</span>
+      <span>Volumes: Google Ads via DataForSEO · região Brasil. Marca/Seo: Semrush (base br). Programação: auditoria técnica em joaokepler.com.br/in.</span>
       <span>Referência de marca João Kepler: 2.000</span>
     </footer>
   </div>
