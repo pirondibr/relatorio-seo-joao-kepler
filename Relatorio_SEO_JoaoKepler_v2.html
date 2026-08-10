@@ -344,6 +344,16 @@ body {
   grid-template-columns: 1fr 1fr;
   gap: 10px;
 }
+.panel.feature { margin-bottom: 14px; }
+.cat-grid.wide-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; padding: 18px 20px 22px; }
+.cat-grid.wide-grid .cat-card { padding: 15px 16px; }
+.cat-grid.wide-grid .cat-card-top h3 { font-size: .92rem; }
+.panel.funnel-panel { margin-bottom: 30px; }
+.panel.funnel-panel .funnel { grid-template-columns: repeat(3, minmax(0, 1fr)); display: grid; gap: 22px; }
+.panel.funnel-panel .funnel-row { grid-template-columns: 78px 1fr; grid-template-areas: "name track" "meta meta"; row-gap: 7px; }
+.panel.funnel-panel .funnel-name { grid-area: name; }
+.panel.funnel-panel .funnel-track { grid-area: track; }
+.panel.funnel-panel .funnel-meta { grid-area: meta; }
 .cat-card {
   display: block;
   text-decoration: none;
@@ -489,11 +499,13 @@ footer.foot {
   .kpi-grid { grid-template-columns: 1fr 1fr; }
   .split, .panel-grid { grid-template-columns: 1fr; }
   .cat-grid { grid-template-columns: 1fr 1fr; }
+  .cat-grid.wide-grid { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 680px) {
   .wrap { padding: 26px 16px 60px; }
   .masthead h1 { font-size: 1.8rem; }
-  .kpi-grid, .cat-grid, .conc-lists { grid-template-columns: 1fr; }
+  .kpi-grid, .cat-grid, .cat-grid.wide-grid, .conc-lists { grid-template-columns: 1fr; }
+  .panel.funnel-panel .funnel { grid-template-columns: 1fr; gap: 16px; }
   .tabs { margin: 0 -16px 20px; padding: 12px 16px; }
   .soft-col { display: none; }
 }
@@ -557,29 +569,9 @@ footer.foot {
           <span class="kpi-hint">termos com posição registrada</span>
         </div></div>
 
-    <div class="split">
-      <section class="panel soft">
-        <header class="panel-head"><div class="panel-title"><h3>Distribuição por funil</h3><p>Onde está o volume de busca</p></div></header>
-        <div class="funnel">
-          <div class="funnel-row">
-            <span class="funnel-name"><i class="dot topo"></i>Topo</span>
-            <div class="funnel-track"><div class="funnel-fill topo" style="width:69.3%"></div></div>
-            <span class="funnel-meta">23 termos · 111.190</span>
-          </div>
-          <div class="funnel-row">
-            <span class="funnel-name"><i class="dot meio"></i>Meio</span>
-            <div class="funnel-track"><div class="funnel-fill meio" style="width:23.9%"></div></div>
-            <span class="funnel-meta">68 termos · 38.350</span>
-          </div>
-          <div class="funnel-row">
-            <span class="funnel-name"><i class="dot fundo"></i>Fundo</span>
-            <div class="funnel-track"><div class="funnel-fill fundo" style="width:6.8%"></div></div>
-            <span class="funnel-meta">46 termos · 10.930</span>
-          </div></div>
-      </section>
-      <section class="panel soft">
-        <header class="panel-head"><div class="panel-title"><h3>Categorias macro</h3><p>Participação no volume total</p></div></header>
-        <div class="cat-grid">
+    <section class="panel soft feature">
+      <header class="panel-head"><div class="panel-title"><h3>Categorias macro</h3><p>Participação no volume total de busca</p></div></header>
+      <div class="cat-grid wide-grid">
         <a class="cat-card" href="#cat-investimento-anjo">
           <div class="cat-card-top">
             <h3>Investimento Anjo</h3>
@@ -676,8 +668,27 @@ footer.foot {
           </div>
           <p class="cat-card-top-term">Top: joão kepler · 5.000</p>
         </a></div>
-      </section>
-    </div>
+    </section>
+
+    <section class="panel soft funnel-panel">
+      <header class="panel-head"><div class="panel-title"><h3>Distribuição por funil</h3><p>Onde está o volume de busca</p></div></header>
+      <div class="funnel">
+          <div class="funnel-row">
+            <span class="funnel-name"><i class="dot topo"></i>Topo</span>
+            <div class="funnel-track"><div class="funnel-fill topo" style="width:69.3%"></div></div>
+            <span class="funnel-meta">23 termos · 111.190</span>
+          </div>
+          <div class="funnel-row">
+            <span class="funnel-name"><i class="dot meio"></i>Meio</span>
+            <div class="funnel-track"><div class="funnel-fill meio" style="width:23.9%"></div></div>
+            <span class="funnel-meta">68 termos · 38.350</span>
+          </div>
+          <div class="funnel-row">
+            <span class="funnel-name"><i class="dot fundo"></i>Fundo</span>
+            <div class="funnel-track"><div class="funnel-fill fundo" style="width:6.8%"></div></div>
+            <span class="funnel-meta">46 termos · 10.930</span>
+          </div></div>
+    </section>
 
     <div class="section-label"><span>Termos por categoria</span></div>
     <div class="panel-grid">
