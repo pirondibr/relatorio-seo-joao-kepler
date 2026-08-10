@@ -605,6 +605,58 @@ th.sortable:hover { color: var(--accent); }
 }
 .medium-link:hover { text-decoration: underline; }
 
+/* ---------- blog factors ---------- */
+.blog-kpis .bad-kpi { background: linear-gradient(160deg, #8f3a36, #6d2824); }
+.factor-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.factor-card {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 14px;
+  align-items: start;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 18px 18px 18px 16px;
+  min-width: 0;
+}
+.factor-num {
+  font-family: Georgia, serif;
+  font-size: 1.2rem;
+  color: var(--gold);
+  line-height: 1;
+  padding-top: 3px;
+}
+.factor-card h3 {
+  margin: 0;
+  font-size: .98rem;
+  color: var(--accent);
+  letter-spacing: -.01em;
+}
+.factor-card p {
+  margin: 6px 0 0;
+  font-size: .84rem;
+  color: var(--ink-soft);
+  line-height: 1.45;
+}
+.factor-status {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  background: #efece4;
+  color: #7a7368;
+  border: 1px solid var(--line);
+}
+
 /* ---------- serp blocks ---------- */
 .panel.wide { grid-column: 1 / -1; }
 .kw { border-top: 1px solid var(--line-soft); }
@@ -647,10 +699,12 @@ footer.foot {
 @media (max-width: 680px) {
   .wrap { padding: 26px 16px 60px; }
   .masthead h1 { font-size: 1.8rem; }
-  .kpi-grid, .cat-grid, .cat-grid.wide-grid, .conc-lists, .meta-proof, .blog-grid { grid-template-columns: 1fr; }
+  .kpi-grid, .cat-grid, .cat-grid.wide-grid, .conc-lists, .meta-proof, .blog-grid, .factor-grid { grid-template-columns: 1fr; }
   .panel.funnel-panel .funnel { grid-template-columns: 1fr; gap: 16px; }
   .crit-head { grid-template-columns: auto 1fr; }
   .crit-badge { grid-column: 2; justify-self: start; }
+  .factor-card { grid-template-columns: auto 1fr; }
+  .factor-status { grid-column: 2; justify-self: start; }
   .tabs { margin: 0 -16px 20px; padding: 12px 16px; }
   .soft-col { display: none; }
 }
@@ -670,7 +724,7 @@ footer.foot {
       <div>
         <span class="eyebrow">Pesquisa de SEO · Brasil</span>
         <h1>João Kepler</h1>
-        <p class="lede">Mapeamento de demanda de busca, potencial por categoria, concorrência orgânica e checklist técnico de programação para <a href="https://joaokepler.com.br/" target="_blank" rel="noopener">joaokepler.com.br</a>.</p>
+        <p class="lede">Mapeamento de demanda de busca, potencial por categoria, concorrência, checklist técnico e framework de blog para <a href="https://joaokepler.com.br/" target="_blank" rel="noopener">joaokepler.com.br</a>.</p>
       </div>
       <div class="meta-chips">
         <span>137 palavras</span>
@@ -684,6 +738,7 @@ footer.foot {
       <button class="tab active" type="button" data-view="potencial">Potencial<span class="n">137</span></button>
       <button class="tab" type="button" data-view="concorrencia">Concorrência<span class="n">21</span></button>
       <button class="tab" type="button" data-view="programacao">Programação<span class="n">5</span></button>
+      <button class="tab" type="button" data-view="blog">Blog<span class="n">8</span></button>
     </nav>
 
     <div id="view-potencial" class="panel-view active">
@@ -1869,9 +1924,106 @@ footer.foot {
       </article>
     </div>
     </div>
+    <div id="view-blog" class="panel-view">
+    <section class="callout warn">
+      <span class="callout-badge">Status</span>
+      <h2>Não há blog próprio para avaliar neste momento</h2>
+      <p>A área de Conteúdos do site direciona para o Medium, então não existe base atual no domínio para pontuar artigos. Abaixo ficam os <strong>8 fatores</strong> que normalmente analisamos em um blog — prontos para quando o conteúdo voltar a ser publicado no site.</p>
+    </section>
+
+    <div class="kpi-grid blog-kpis">
+      <div class="kpi">
+        <span class="kpi-label">Fatores do framework</span>
+        <strong class="kpi-value">8</strong>
+        <span class="kpi-hint">Checklist padrão de conteúdo</span>
+      </div>
+      <div class="kpi bad-kpi">
+        <span class="kpi-label">Artigos no domínio</span>
+        <strong class="kpi-value">0</strong>
+        <span class="kpi-hint">Conteúdo editorial fora do site</span>
+      </div>
+      <div class="kpi">
+        <span class="kpi-label">Avaliação</span>
+        <strong class="kpi-value" style="font-size:1.35rem">Pendente</strong>
+        <span class="kpi-hint">Aguardando blog próprio</span>
+      </div>
+      <div class="kpi">
+        <span class="kpi-label">Destino atual</span>
+        <strong class="kpi-value" style="font-size:1.15rem">Medium</strong>
+        <span class="kpi-hint">joaokepler.medium.com</span>
+      </div>
+    </div>
+
+    <div class="section-label"><span>Fatores que geralmente analisamos</span></div>
+    <div class="factor-grid">
+      <article class="factor-card">
+        <span class="factor-num">01</span>
+        <div>
+          <h3>Cobertura de palavras-chave</h3>
+          <p>Quais termos principais e secundários o artigo cobre, e se a intenção de busca está atendida de ponta a ponta.</p>
+        </div>
+        <span class="factor-status">Não avaliado</span>
+      </article>
+      <article class="factor-card">
+        <span class="factor-num">02</span>
+        <div>
+          <h3>Links internos</h3>
+          <p>Como o post se conecta a outras páginas do site para distribuir autoridade e guiar o leitor no funil.</p>
+        </div>
+        <span class="factor-status">Não avaliado</span>
+      </article>
+      <article class="factor-card">
+        <span class="factor-num">03</span>
+        <div>
+          <h3>Subtópicos</h3>
+          <p>Seções e ângulos que aprofundam o tema central, respondendo perguntas relacionadas que o Google espera ver.</p>
+        </div>
+        <span class="factor-status">Não avaliado</span>
+      </article>
+      <article class="factor-card">
+        <span class="factor-num">04</span>
+        <div>
+          <h3>Índice</h3>
+          <p>Sumário ou âncoras no topo que organizam a leitura, melhoram UX e podem gerar sitelinks no resultado.</p>
+        </div>
+        <span class="factor-status">Não avaliado</span>
+      </article>
+      <article class="factor-card">
+        <span class="factor-num">05</span>
+        <div>
+          <h3>CTA</h3>
+          <p>Chamadas à ação claras (diagnóstico, ebook, contato, lead) alinhadas ao estágio do funil do conteúdo.</p>
+        </div>
+        <span class="factor-status">Não avaliado</span>
+      </article>
+      <article class="factor-card">
+        <span class="factor-num">06</span>
+        <div>
+          <h3>Densidade de palavras</h3>
+          <p>Equilíbrio entre volume de texto, repetição natural do termo e legibilidade — sem stuffing e sem conteúdo raso.</p>
+        </div>
+        <span class="factor-status">Não avaliado</span>
+      </article>
+      <article class="factor-card">
+        <span class="factor-num">07</span>
+        <div>
+          <h3>Autoridade por tópicos</h3>
+          <p>Se o domínio constrói clusters temáticos (equity, valuation, anjo etc.) e reforça expertise ao longo do tempo.</p>
+        </div>
+        <span class="factor-status">Não avaliado</span>
+      </article>
+      <article class="factor-card">
+        <span class="factor-num">08</span>
+        <div>
+          <h3>Autor</h3>
+          <p>Assinatura, bio e sinais de E-E-A-T: quem escreve, credenciais e consistência da voz com a marca.</p>
+        </div>
+        <span class="factor-status">Não avaliado</span>
+      </article></div>
+    </div>
 
     <footer class="foot">
-      <span>Volumes: Google Ads via DataForSEO · região Brasil. Marca/Seo: Semrush (base br). Programação: auditoria técnica em joaokepler.com.br/in.</span>
+      <span>Volumes: Google Ads via DataForSEO · região Brasil. Marca/Seo: Semrush (base br). Programação e Blog: auditoria em joaokepler.com.br.</span>
       <span>Referência de marca João Kepler: 2.000</span>
     </footer>
   </div>
